@@ -1,7 +1,17 @@
+import { styled } from "@mui/system";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CreateQuiz from "./pages/CreateQuiz";
+
 function App() {
   return (
     <div className="App">
-      <h1>Hello world</h1>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/create-quiz" element={<CreateQuiz />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
