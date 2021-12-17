@@ -1,5 +1,5 @@
 import Appbar from "../components/Appbar";
-import Quiz from "../components/Quiz";
+import AddQuiz from "../components/AddQuiz";
 
 interface CreateQuizProps {}
 
@@ -7,7 +7,7 @@ const Home: React.FC<CreateQuizProps> = () => {
   return (
     <>
       <Appbar />
-      <Quiz />
+      <AddQuiz />
     </>
   );
 };

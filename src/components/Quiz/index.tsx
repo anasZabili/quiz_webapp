@@ -10,12 +10,12 @@ const Container = styled(Box)({
 
 interface QuizProps {}
 
-export interface QuizState {
+export interface QuizInfoState {
   quiz: { id: string; name: string }[];
 }
 
 const Quiz: React.FC<QuizProps> = () => {
-  const [quiz, setQuiz] = useState<QuizState["quiz"]>([
+  const [quiz, setQuiz] = useState<QuizInfoState["quiz"]>([
     { id: "45", name: "Animals dans la jungle" },
     { id: "47", name: "History" },
     { id: "48", name: "History" },

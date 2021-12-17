@@ -1,20 +1,21 @@
-import { Box, styled } from "@mui/system";
 import { useState } from "react";
+import { QuizInfoState } from "../Quiz";
+import QuizList from "./QuizList";
+import { styled } from "@mui/system";
+import { Box } from "@mui/system";
+import DisplayQuiz from "./DisplayQuiz";
 
 const Container = styled(Box)({
-  width: "80%",
-  maxWidth: "1500px",
-  margin: "2em auto",
+  display: "flex",
+  flexDirection: "row",
 });
 
-interface CreateQuizProps {}
+interface AddQuizProps {}
 
-export interface QuizState {
-  quiz: { id: string; name: string }[];
-}
+const AddQuiz: React.FC<AddQuizProps> = () => {
+  const [selectedQuizId, setSelectedQuizId] = useState<string | null>("1");
 
-const CreateQuiz: React.FC<CreateQuizProps> = () => {
-  const [quiz, setQuiz] = useState<QuizState["quiz"]>([
+  const [quiz, setQuiz] = useState<QuizInfoState["quiz"]>([
     { id: "45", name: "Animals dans la jungle" },
     { id: "47", name: "History" },
     { id: "48", name: "History" },
@@ -22,8 +23,12 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
     { id: "50", name: "History" },
     { id: "51", name: "History" },
   ]);
-
-  return <h1>hello world</h1>;
+  return (
+    <Container>
+      <QuizList quiz={quiz} />
+      <DisplayQuiz quizId={selectedQuizId} />
+    </Container>
+  );
 };
 
-export default CreateQuiz;
+export default AddQuiz;
