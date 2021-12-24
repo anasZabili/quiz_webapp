@@ -1,4 +1,10 @@
-import { Checkbox, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+} from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import { IAnswers } from "./Question";
@@ -11,44 +17,57 @@ const StyledBox = styled(Box)({
   justifyItems: "center",
 });
 
+const StyledFormGroup = styled(FormGroup)({
+  display: "grid",
+  gridTemplateColumns: "auto auto",
+  gridGap: "1rem",
+  alignItems: "center",
+  justifyItems: "center",
+});
+
+const CenterFormControlLabel = styled(FormControlLabel)({
+  display: "flex",
+  justifyContent: "center",
+});
+
 const CheckBoxContainer = styled(Box)({
   display: "flex",
   flexDirection: "row",
-  // space beetween checkboxes
-  justifyContent: "space-between",
-
-  alignItems: "center",
   width: "200px",
 });
-
-interface CheckboxsState {
-  checkboxsState: {
-    id: string;
-    isChecked: boolean;
-  }[];
-}
 
 interface CheckBoxGroupProps {
   answers: IAnswers["answers"];
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isVerify: boolean;
 }
 
 const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
   answers,
   handleChange,
+  isVerify,
 }) => {
   return (
     <StyledBox>
-      {answers?.map((value, index) => {
-        return (
-          <>
-            <CheckBoxContainer key={index}>
-              <Typography variant="h5">{value.text}</Typography>
-              <Checkbox value={value.id} onChange={handleChange} />
-            </CheckBoxContainer>
-          </>
-        );
-      })}
+      <FormControl component="div" disabled={isVerify}>
+        <StyledFormGroup>
+          {answers?.map((value, index) => {
+            return (
+              <>
+                <CheckBoxContainer key={index}>
+                  {/* <Typography variant="h5">{value.text}</Typography> */}
+                  <CenterFormControlLabel
+                    control={
+                      <Checkbox value={value.id} onChange={handleChange} />
+                    }
+                    label={value.text}
+                  />
+                </CheckBoxContainer>
+              </>
+            );
+          })}
+        </StyledFormGroup>
+      </FormControl>
     </StyledBox>
   );
 };

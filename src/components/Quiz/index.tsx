@@ -8,25 +8,27 @@ const Container = styled(Box)({
   margin: "2em auto",
 });
 
-interface QuizProps {}
+interface QuizProps {
+  quizzes: { id: string; name: string }[];
+}
 
 export interface QuizInfoState {
   quiz: { id: string; name: string }[];
 }
 
-const Quiz: React.FC<QuizProps> = () => {
-  const [quiz, setQuiz] = useState<QuizInfoState["quiz"]>([
-    { id: "45", name: "Animals dans la jungle" },
-    { id: "47", name: "History" },
-    { id: "48", name: "History" },
-    { id: "49", name: "History" },
-    { id: "50", name: "History" },
-    { id: "51", name: "History" },
-  ]);
+const Quiz: React.FC<QuizProps> = ({ quizzes }) => {
+  // const [quiz, setQuiz] = useState<QuizInfoState["quiz"]>([
+  //   { id: "45", name: "Animals dans la jungle" },
+  //   { id: "47", name: "History" },
+  //   { id: "48", name: "History" },
+  //   { id: "49", name: "History" },
+  //   { id: "50", name: "History" },
+  //   { id: "51", name: "History" },
+  // ]);
 
   return (
     <Container>
-      <QuizContent quiz={quiz} />
+      <QuizContent quiz={quizzes} />
     </Container>
   );
 };

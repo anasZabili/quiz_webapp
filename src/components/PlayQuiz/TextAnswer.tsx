@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 import CenterBox from "../atoms/CenterBox";
 import TextInput from "../atoms/TextInput";
 import { styled } from "@mui/system";
-import CorrectTextReponse from "../atoms/CorrectTextResponse";
+import TextReponse from "../atoms/TextResponse";
 
 interface TextAnswerProps {
   isTheLastQuestion: boolean;
@@ -32,15 +32,27 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
   const handleVerify = async () => {
     if (isVerify) return;
     setTimeout(() => {
-      setResponse({ id: "45", text: "bonne réponse" });
+      setResponse({ id: "45", text: "Tigre du bungal" });
       setIsVerify(true);
     }, 2000);
+  };
+
+  const isCorrectAnswer = (): boolean => {
+    if (!response || !answer) return false;
+    return response.text.toLowerCase() === answer.toLowerCase();
   };
 
   return (
     <CenterBox>
       <TextInput onChange={handleChange} placeholder="Réponse" value={answer} />
-      {response && <CorrectTextReponse>{response.text}</CorrectTextReponse>}
+      {response &&
+        (isCorrectAnswer() ? (
+          <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
+        ) : (
+          <TextReponse isCorrect={false}>
+            Mauvaise réponse la bonne réponse était {response?.text}
+          </TextReponse>
+        ))}
 
       {!isVerify ? (
         <Button variant="contained" onClick={handleVerify}>

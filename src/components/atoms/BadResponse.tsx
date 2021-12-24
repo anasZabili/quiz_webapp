@@ -2,15 +2,14 @@ import { Typography } from "@mui/material";
 import { styled } from "@mui/system";
 
 const GreenTypography = styled(Typography)({
-  color: "green",
+  color: "#f66666",
+  fontWeight: "bold",
 });
 
-interface CorrectTextReponseProps {}
+interface BadTextReponseProps {}
 
-const CorrectTextReponse: React.FC<CorrectTextReponseProps> = ({
-  children,
-}) => {
+const BadTextReponse: React.FC<BadTextReponseProps> = ({ children }) => {
   return <GreenTypography>{children}</GreenTypography>;
 };
 
-export default CorrectTextReponse;
+export default BadTextReponse;

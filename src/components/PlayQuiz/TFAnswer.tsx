@@ -11,7 +11,7 @@ import { IAnswers } from "./Question";
 import { Box } from "@mui/system";
 import CenterBox from "../atoms/CenterBox";
 import { useState } from "react";
-import CorrectTextReponse from "../atoms/CorrectTextResponse";
+import TextReponse from "../atoms/TextResponse";
 
 interface TFAnswerProps {
   answers: IAnswers["answers"];
@@ -73,11 +73,16 @@ const TFAnswer: React.FC<TFAnswerProps> = ({
           ))}
           {}
         </RadioGroup>
-        {response && (
-          <CorrectTextReponse>
-            {isCorrectAnswer() ? "Bonne réponse" : "Mauvaise réponse"}
-          </CorrectTextReponse>
-        )}
+        {response &&
+          (isCorrectAnswer() ? (
+            <TextReponse isCorrect={isCorrectAnswer()}>
+              Bonne réponse
+            </TextReponse>
+          ) : (
+            <TextReponse isCorrect={isCorrectAnswer()}>
+              Mauvaise réponse
+            </TextReponse>
+          ))}
       </FormControl>
       {!isVerify ? (
         <Button
