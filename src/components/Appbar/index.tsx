@@ -45,8 +45,9 @@ const Appbar: React.FC<AppbarProps> = () => {
         <TitleContainer onClick={handleClick} flexGrow={1}>
           <Title>NETQUIZ</Title>
         </TitleContainer>
-        <StyledButton to="/">Quizz</StyledButton>
-        <StyledButton to="/create-quiz">Créer Quizz</StyledButton>
+        <StyledButton to="/">Quiz</StyledButton>
+        <StyledButton to="/create-quiz">Créer Quiz</StyledButton>
+        <StyledButton to="/update-quiz">Modifier Quiz</StyledButton>
       </Toolbar>
     </StyledAppBar>
   );

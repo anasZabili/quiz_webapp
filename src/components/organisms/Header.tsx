@@ -28,8 +28,9 @@ const Appbar: React.FC<AppbarProps> = () => {
         <TitleContainer onClick={handleClick} flexGrow={1}>
           <AppTitle>NETQUIZ</AppTitle>
         </TitleContainer>
-        <HeaderLink to="/">Quizz</HeaderLink>
-        <HeaderLink to="/create-quiz">Créer Quizz</HeaderLink>
+        <HeaderLink to="/">Quiz</HeaderLink>
+        <HeaderLink to="/create-quiz">Créer Quiz</HeaderLink>
+        <HeaderLink to="/update-quiz">Modifier Quiz</HeaderLink>
       </Toolbar>
     </StyledAppBar>
   );
