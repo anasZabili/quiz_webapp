@@ -1,15 +1,10 @@
 import Appbar from "../components/Appbar";
-import AddQuiz from "../components/AddQuiz";
+import CreateQuiz from "../components/templates/CreateQuiz";
 
 interface CreateQuizProps {}
 
 const Home: React.FC<CreateQuizProps> = () => {
-  return (
-    <>
-      <Appbar />
-      <AddQuiz />
-    </>
-  );
+  return <CreateQuiz />;
 };
 
 export default Home;

@@ -7,11 +7,10 @@ const useGet = () => {
   const [response, setResponse] = useState<any | null>(null);
 
   const axiosGet = (url: string, option?: any) => {
-    const API_URL = "http://localhost:3005/";
-    const API_ENDPOINT = API_URL + url;
     axios
-      .get(API_ENDPOINT, option)
+      .get(url, option)
       .then((res: any) => {
+        console.log("🚀 ~ file: useGet.ts ~ line 13 ~ .then ~ res", res);
         setIsLoading(false);
         setResponse(res.data);
         setError(null);

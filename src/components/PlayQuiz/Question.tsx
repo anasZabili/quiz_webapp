@@ -38,9 +38,10 @@ const AnswerContainer = styled(Box)({
 
 interface QuestionProps {
   question: PlayableQuizState["questions"][number];
-  nextQuestion: () => void;
-  finishQuiz: () => void;
+  finishQuiz: (isCorrect: boolean) => void;
   isTheLastQuestion: boolean;
+  nextQuestion: (isCorrect: boolean) => void;
+  setCurrentScore: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface IAnswers {
@@ -52,16 +53,17 @@ const Question: React.FC<QuestionProps> = ({
   nextQuestion,
   isTheLastQuestion,
   finishQuiz,
+  setCurrentScore,
 }) => {
   const ComputedAnswerComponent = (): React.ReactElement => {
     switch (question.type) {
       case 0:
         return (
-          <TFAnswer
+          <TextAnswer
             finishQuiz={finishQuiz}
             isTheLastQuestion={isTheLastQuestion}
             nextQuestion={nextQuestion}
-            answers={question.answers}
+            questionId={question.id}
           />
         );
       // true or false
@@ -73,6 +75,7 @@ const Question: React.FC<QuestionProps> = ({
             isTheLastQuestion={isTheLastQuestion}
             nextQuestion={nextQuestion}
             answers={question.answers}
+            questionId={question.id}
           />
         );
 
@@ -85,6 +88,7 @@ const Question: React.FC<QuestionProps> = ({
             isTheLastQuestion={isTheLastQuestion}
             nextQuestion={nextQuestion}
             answers={question.answers}
+            questionId={question.id}
           />
         );
 
@@ -96,6 +100,7 @@ const Question: React.FC<QuestionProps> = ({
             finishQuiz={finishQuiz}
             isTheLastQuestion={isTheLastQuestion}
             nextQuestion={nextQuestion}
+            questionId={question.id}
           />
         );
       // text
@@ -105,6 +110,7 @@ const Question: React.FC<QuestionProps> = ({
             finishQuiz={finishQuiz}
             isTheLastQuestion={isTheLastQuestion}
             nextQuestion={nextQuestion}
+            questionId={question.id}
           />
         );
     }

@@ -10,7 +10,6 @@ const Container = styled(Box)({
 
 const QuestionContainer = styled(Box)({
   margin: "2rem",
-  // height: "100%",
   display: "flex",
   justifyContent: "center",
 });
@@ -22,7 +21,6 @@ const Title = styled("h1")({
   color: "Gray",
   textAlign: "center",
   letterSpacing: "0.2rem",
-  // textShadow: "0.02em 0.02em 2px gray",
   fontFamily: "Bebas Neue",
 });
 
@@ -33,6 +31,7 @@ interface QuizPlayProps {
 const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
+  console.log("🚀 ~ file: index.tsx ~ line 36 ~ currentScore", currentScore);
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
 
   useEffect(() => {
@@ -41,12 +40,18 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     }
   }, [currentQuestionNumber]);
 
-  const nextQuestion = () => {
+  const nextQuestion = (isCorrect: boolean) => {
+    if (isCorrect) {
+      setCurrentScore((prevScore) => prevScore + 1);
+    }
     setCurrentQuestionNumber(currentQuestionNumber + 1);
   };
 
-  const finishQuiz = () => {
-    alert("Quiz finished");
+  const finishQuiz = (isCorrect: boolean) => {
+    if (isCorrect) {
+      setCurrentScore((prevScore) => prevScore + 1);
+    }
+    alert(`Quiz terminé avec un score de ${currentScore}`);
   };
 
   return (
@@ -58,6 +63,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
           nextQuestion={nextQuestion}
           isTheLastQuestion={isTheLastQuestion}
           finishQuiz={finishQuiz}
+          setCurrentScore={setCurrentScore}
         />
       </QuestionContainer>
     </Container>

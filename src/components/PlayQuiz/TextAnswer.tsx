@@ -1,56 +1,66 @@
-import { IAnswers } from "./Question";
 import { InputBase, Button, Typography } from "@mui/material";
-import { useState } from "react";
-import { Box } from "@mui/system";
+import { useCallback, useState } from "react";
 import CenterBox from "../atoms/CenterBox";
 import TextInput from "../atoms/TextInput";
-import { styled } from "@mui/system";
 import TextReponse from "../atoms/TextResponse";
+import useGet from "../../hooks/useGet";
 
 interface TextAnswerProps {
   isTheLastQuestion: boolean;
-  finishQuiz: () => void;
-  nextQuestion: () => void;
+  finishQuiz: (isCorrect: boolean) => void;
+  nextQuestion: (isCorrect: boolean) => void;
+  questionId: string;
 }
 
 const TextAnswer: React.FC<TextAnswerProps> = ({
   isTheLastQuestion,
   finishQuiz,
   nextQuestion,
+  questionId,
 }) => {
   const [answer, setAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnswer(event.target.value);
   };
+  const { axiosGet, response, isLoading, error } = useGet();
+  console.log("🚀 ~ file: TextAnswer.tsx ~ line 26 ~ error", error);
+  console.log("🚀 ~ file: TextAnswer.tsx ~ line 26 ~ isLoading", isLoading);
 
   const [isVerify, setIsVerify] = useState(false);
-  const [response, setResponse] = useState<null | {
-    id: string;
-    text: string;
-  }>(null);
 
   const handleVerify = async () => {
     if (isVerify) return;
-    setTimeout(() => {
-      setResponse({ id: "45", text: "Tigre du bungal" });
-      setIsVerify(true);
-    }, 2000);
+    const url =
+      process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
+    axiosGet(url);
+    // if (!isLoading && !error) {
+    console.log("je set de verify a true");
+    setIsVerify(true);
+    // }
   };
-
-  const isCorrectAnswer = (): boolean => {
+  const isCorrectAnswer = useCallback((): boolean => {
     if (!response || !answer) return false;
-    return response.text.toLowerCase() === answer.toLowerCase();
-  };
+    return response[0].text.toLowerCase() === answer.toLowerCase();
+  }, [answer, response]);
+  // const isCorrectAnswer = (): boolean => {
+  //   if (!response || !answer) return false;
+  //   return response.text.toLowerCase() === answer.toLowerCase();
+  // };
 
   return (
     <CenterBox>
-      <TextInput onChange={handleChange} placeholder="Réponse" value={answer} />
+      <TextInput
+        onChange={handleChange}
+        disabled={isVerify}
+        placeholder="Réponse"
+        value={answer}
+      />
       {response &&
         (isCorrectAnswer() ? (
           <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
         ) : (
           <TextReponse isCorrect={false}>
-            Mauvaise réponse la bonne réponse était {response?.text}
+            Mauvaise réponse la bonne réponse était {response[0]?.text}
           </TextReponse>
         ))}
 
@@ -59,11 +69,17 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
           Vérifier
         </Button>
       ) : isTheLastQuestion ? (
-        <Button variant="contained" onClick={finishQuiz}>
+        <Button
+          variant="contained"
+          onClick={() => finishQuiz(isCorrectAnswer())}
+        >
           Terminer
         </Button>
       ) : (
-        <Button variant="contained" onClick={nextQuestion}>
+        <Button
+          variant="contained"
+          onClick={() => nextQuestion(isCorrectAnswer())}
+        >
           Suivant
         </Button>
       )}

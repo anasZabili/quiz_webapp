@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useEffect, useState, useCallback } from "react";
+import useGet from "../../hooks/useGet";
 import CenterBox from "../atoms/CenterBox";
 import TextReponse from "../atoms/TextResponse";
 import CheckBoxGroup from "./CheckBoxGroup";
@@ -9,9 +10,10 @@ import { IAnswers } from "./Question";
 interface MultipleChoiceAnswerProps {
   answers: IAnswers["answers"];
   isTheLastQuestion: boolean;
-  finishQuiz: () => void;
-  nextQuestion: () => void;
+  finishQuiz: (isCorrect: boolean) => void;
   isSingleChoice: boolean;
+  questionId: string;
+  nextQuestion: (isCorrect: boolean) => void;
 }
 
 interface CheckboxsState {
@@ -26,23 +28,13 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   finishQuiz,
   nextQuestion,
   isSingleChoice,
+  questionId,
 }) => {
   const [checked, setChecked] = useState<CheckboxsState["checkboxsState"]>();
 
   const [isVerify, setIsVerify] = useState(false);
 
-  const [response, setResponse] = useState<
-    | null
-    | {
-        id: string;
-        text: string;
-      }[]
-  >(null);
-
-  console.log(
-    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 30 ~ checked",
-    checked
-  );
+  const { axiosGet, response, isLoading, error } = useGet();
 
   useEffect(() => {
     setChecked(
@@ -68,31 +60,46 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     });
   };
 
-  const handleVerify = async () => {
+  const handleVerify = () => {
     if (isVerify) return;
-    setTimeout(() => {
-      setResponse([
-        { id: "014fcb57-7450-4302-6c5a-08d9be4c152d", text: "Tigre du bungal" },
-        { id: "19fa07ae-e214-411f-6c5b-08d9be4c152d", text: "Croque monsieur" },
-      ]);
+    const url =
+      process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
+    axiosGet(url);
+    if (!isLoading && !error) {
       setIsVerify(true);
-    }, 2000);
+    }
   };
-
-  const isCorrectAnswer = (): boolean => {
+  const isCorrectAnswer = useCallback((): boolean => {
     if (!response || !checked) return false;
-    const correctAnswersIds = response.map((item) => item.id);
+    const correctAnswersIds = response.map((item: { id: any }) => item.id);
     const playerAnswersIds = checked.map((item) => {
       if (item.isChecked) return item.id;
       return null;
     });
 
-    // check if carrectAnswersIds is equal to playerAnswersIds
+    // check if correctAnswersIds is equal to playerAnswersIds
     return (
-      correctAnswersIds.every((item) => playerAnswersIds.includes(item)) &&
-      playerAnswersIds.length === correctAnswersIds.length
+      correctAnswersIds.every((item: string | null) =>
+        playerAnswersIds.includes(item)
+      ) && playerAnswersIds.length === correctAnswersIds.length
     );
-  };
+  }, [checked, response]);
+
+  // const isCorrectAnswer = (): boolean => {
+  //   if (!response || !checked) return false;
+  //   const correctAnswersIds = response.map((item: { id: any }) => item.id);
+  //   const playerAnswersIds = checked.map((item) => {
+  //     if (item.isChecked) return item.id;
+  //     return null;
+  //   });
+
+  //   // check if carrectAnswersIds is equal to playerAnswersIds
+  //   return (
+  //     correctAnswersIds.every((item: string | null) =>
+  //       playerAnswersIds.includes(item)
+  //     ) && playerAnswersIds.length === correctAnswersIds.length
+  //   );
+  // };
 
   const hasAtLeastOneAnswer = (): boolean => {
     if (!checked) return false;
@@ -111,8 +118,8 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
           <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
         ) : (
           <TextReponse isCorrect={false}>
-            Mauvaise réponse la/les bonne réponse était{" "}
-            {response.map((value) => value.text + ", ")}
+            Mauvaise réponse la/les bonne réponse est/sont
+            {response.map((value: { text: string }) => value.text + " ")}
           </TextReponse>
         ))}
       {!isVerify ? (
@@ -124,11 +131,17 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
           Vérifier
         </Button>
       ) : isTheLastQuestion ? (
-        <Button variant="contained" onClick={finishQuiz}>
+        <Button
+          variant="contained"
+          onClick={() => finishQuiz(isCorrectAnswer())}
+        >
           Terminer
         </Button>
       ) : (
-        <Button variant="contained" onClick={nextQuestion}>
+        <Button
+          variant="contained"
+          onClick={() => nextQuestion(isCorrectAnswer())}
+        >
           Suivant
         </Button>
       )}

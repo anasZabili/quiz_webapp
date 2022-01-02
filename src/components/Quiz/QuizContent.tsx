@@ -7,7 +7,6 @@ interface QuizContentProps {
 }
 
 const QuizContent: React.FC<QuizContentProps> = ({ quiz }) => {
-  console.log("🚀 ~ file: QuizContent.tsx ~ line 9 ~ quiz", quiz);
   return (
     <Grid container spacing={4}>
       {quiz.map((value, index) => {

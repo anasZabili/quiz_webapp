@@ -11,11 +11,12 @@ const Input = styled(InputBase)({
     border: "1px solid #eef3f8",
     fontSize: 16,
     width: "auto",
-    padding: "10px 12px",
+    padding: "10px 17px",
     // Use the system font instead of the default Roboto font.
     "&:focus": {
       borderColor: "white",
     },
+    minWidth: "13em",
   },
 });
 const TextInput = ({ ...props }) => {

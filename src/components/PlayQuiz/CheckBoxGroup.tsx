@@ -55,7 +55,6 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
             return (
               <>
                 <CheckBoxContainer key={index}>
-                  {/* <Typography variant="h5">{value.text}</Typography> */}
                   <CenterFormControlLabel
                     control={
                       <Checkbox value={value.id} onChange={handleChange} />

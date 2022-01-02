@@ -2,22 +2,22 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
   Typography,
 } from "@mui/material";
 import { IAnswers } from "./Question";
-import { Box } from "@mui/system";
 import CenterBox from "../atoms/CenterBox";
 import { useState } from "react";
 import TextReponse from "../atoms/TextResponse";
+import useGet from "../../hooks/useGet";
 
 interface TFAnswerProps {
   answers: IAnswers["answers"];
   isTheLastQuestion: boolean;
   finishQuiz: () => void;
   nextQuestion: () => void;
+  questionId: string;
 }
 
 const TFAnswer: React.FC<TFAnswerProps> = ({
@@ -25,34 +25,31 @@ const TFAnswer: React.FC<TFAnswerProps> = ({
   isTheLastQuestion,
   finishQuiz,
   nextQuestion,
+  questionId,
 }) => {
-  console.log("🚀 ~ file: TFAnswer.tsx ~ line 28 ~ answers", answers);
   const [selectedAnswer, setSelectedAnswer] = useState("");
-  console.log(
-    "🚀 ~ file: TFAnswer.tsx ~ line 28 ~ selectedAnswer",
-    selectedAnswer
-  );
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
     setSelectedAnswer(event.target.value);
   };
 
   const [isVerify, setIsVerify] = useState(false);
-  const [response, setResponse] = useState<null | { id: string; text: string }>(
-    null
-  );
 
-  const handleVerify = async () => {
+  const { axiosGet, response, isLoading, error } = useGet();
+
+  const handleVerify = () => {
     if (isVerify) return;
-    setTimeout(() => {
-      setResponse({ id: "15", text: "Vrai" });
+    const url =
+      process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
+    axiosGet(url);
+    if (!isLoading && !error) {
       setIsVerify(true);
-    }, 2000);
+    }
   };
 
   const isCorrectAnswer = (): boolean => {
     if (!response || !selectedAnswer) return false;
-    return response.text === selectedAnswer;
+    return response[0].text === selectedAnswer;
   };
   return (
     <CenterBox>
