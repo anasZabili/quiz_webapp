@@ -1,8 +1,13 @@
 import Header from "../organisms/Header";
 import { Box, styled } from "@mui/system";
 import UpdateQuizPage from "../organisms/UpdateQuiz/index"
+import { QuizInfoState } from "./Home";
 
-interface UpdateQuizProps {}
+interface UpdateQuizProps {
+    isLoading: boolean;
+    quizzes: QuizInfoState["quiz"];
+    refetch: () => void;
+}
 
 const Container = styled(Box)({
   width: "80%",
@@ -10,11 +15,11 @@ const Container = styled(Box)({
   margin: "2em auto",
 });
 
-const UpdateQuiz: React.FC<UpdateQuizProps> = () => {
+const UpdateQuiz: React.FC<UpdateQuizProps> = ({ isLoading = false, quizzes, refetch }) => {
   return (
     <>
       <Header />
-      <Container>{<UpdateQuizPage />}</Container>
+      <Container>{!isLoading && <UpdateQuizPage quizzes={quizzes} refetch={refetch}/>}</Container>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 // export interface useFetchMovieInterfaceFromTvMaze {
@@ -53,6 +53,23 @@ const useFetchData = (url: string, params?: any) => {
   // };
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const refetch = useCallback(
+    () => {
+      axios.get(url, params).then(
+        (res) => {
+          setError(null);
+          setData(res.data);
+          setIsLoading(false);
+        },
+        (err) => {
+          setError(err);
+          setIsLoading(false);
+        }
+      );
+    },
+    [url, params],
+  )
   useEffect(() => {
     axios.get(url, params).then(
       (res) => {
@@ -71,6 +88,7 @@ const useFetchData = (url: string, params?: any) => {
     data,
     isLoading,
     error,
+    refetch
   };
 };
 
