@@ -1,4 +1,3 @@
-import Appbar from "../components/Appbar";
 import CreateQuiz from "../components/templates/CreateQuiz";
 
 interface CreateQuizProps {}

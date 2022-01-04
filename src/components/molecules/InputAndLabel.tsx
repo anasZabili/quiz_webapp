@@ -4,20 +4,26 @@ import TextInput from "../atoms/TextInput";
 import InputLabel from "../atoms/InputLabel";
 
 interface InputAndLabelProps {
-  label: string;
+  label?: string;
   inputType: string;
   placeholder: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const InputAndLabel: React.FC<InputAndLabelProps> = ({
   label,
   inputType,
   placeholder,
+  onChange,
 }) => {
   return (
     <>
-      <InputLabel htmlFor="my-input">{label}</InputLabel>
-      <TextInput type={inputType} placeholder={placeholder} />
+      {label && <InputLabel htmlFor="my-input">{label}</InputLabel>}
+      <TextInput
+        type={inputType}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </>
   );
 };

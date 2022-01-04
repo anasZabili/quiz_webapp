@@ -1,5 +1,3 @@
-import Appbar from "../components/Appbar";
-import Quiz from "../components/Quiz";
 import useFetchData from "../hooks/useFetchData";
 import { default as HomeTemplate } from "../components/templates/Home";
 

@@ -1,6 +1,7 @@
 import Header from "../organisms/Header";
 import { Box, styled } from "@mui/system";
 import CreateQuizForm from "../organisms/CreateQuiz/CreateQuizForm";
+import CreateQuizStepper from "../organisms/CreateQuiz/CreateQuizStepper";
 
 interface CreateQuizProps {}
 
@@ -14,7 +15,7 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
   return (
     <>
       <Header />
-      <Container>{<CreateQuizForm />}</Container>
+      <Container>{<CreateQuizStepper />}</Container>
     </>
   );
 };

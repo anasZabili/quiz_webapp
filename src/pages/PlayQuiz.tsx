@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useParams } from "react-router";
-import Appbar from "../components/Appbar";
+import Appbar from "../components/organisms/Header";
 import QuizPlay from "../components/PlayQuiz";
 import useFetchData from "../hooks/useFetchData";
 
