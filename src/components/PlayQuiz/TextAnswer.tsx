@@ -18,6 +18,7 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
   nextQuestion,
   questionId,
 }) => {
+  console.log("🚀 ~ file: TextAnswer.tsx ~ line 21 ~ questionId", questionId);
   const [answer, setAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAnswer(event.target.value);
@@ -30,6 +31,10 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
     if (isVerify) return;
     const url =
       process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
+    console.log(
+      "🚀 ~ file: TextAnswer.tsx ~ line 33 ~ handleVerify ~ url",
+      url
+    );
     axiosGet(url);
     // if (!isLoading && !error) {
     setIsVerify(true);

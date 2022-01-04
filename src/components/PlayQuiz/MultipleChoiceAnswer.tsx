@@ -4,6 +4,7 @@ import useGet from "../../hooks/useGet";
 import CenterBox from "../atoms/CenterBox";
 import TextReponse from "../atoms/TextResponse";
 import CheckBoxGroup from "./CheckBoxGroup";
+import Joi from "joi";
 
 import { IAnswers } from "./Question";
 
@@ -18,10 +19,11 @@ interface MultipleChoiceAnswerProps {
 
 interface CheckboxsState {
   checkboxsState: {
-    id: string;
+    text: string;
     isChecked: boolean;
   }[];
 }
+
 const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   answers,
   isTheLastQuestion,
@@ -30,7 +32,15 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   isSingleChoice,
   questionId,
 }) => {
+  console.log(
+    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 36 ~ questionId",
+    questionId
+  );
   const [checked, setChecked] = useState<CheckboxsState["checkboxsState"]>();
+  console.log(
+    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 50 ~ checked",
+    checked
+  );
 
   const [isVerify, setIsVerify] = useState(false);
 
@@ -48,10 +58,18 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
-    const id = event.target.value;
+    console.log(
+      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 71 ~ handleChange ~ checked",
+      checked
+    );
+    const text = event.target.value;
+    console.log(
+      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 72 ~ handleChange ~ id",
+      text
+    );
     setChecked((prevState) => {
       const newState = prevState?.map((item) => {
-        if (item.id === id) {
+        if (item.text === text) {
           return { ...item, isChecked: checked };
         }
         return item;
@@ -64,6 +82,10 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     if (isVerify) return;
     const url =
       process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
+    console.log(
+      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 84 ~ handleVerify ~ url",
+      url
+    );
     axiosGet(url);
     if (!isLoading && !error) {
       setIsVerify(true);
@@ -73,7 +95,7 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     if (!response || !checked) return false;
     const correctAnswersIds = response.map((item: { id: any }) => item.id);
     const playerAnswersIds = checked.map((item) => {
-      if (item.isChecked) return item.id;
+      if (item.isChecked) return item.text;
       return null;
     });
 

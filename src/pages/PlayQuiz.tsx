@@ -29,6 +29,7 @@ const PlayQuiz: React.FC<PlayQuizProps> = () => {
 
   const url = process.env.REACT_APP_API_BASE + `quiz/${quizId}`;
   const { error, isLoading, data } = useFetchData(url);
+  console.log("🚀 ~ file: PlayQuiz.tsx ~ line 32 ~ data", data);
 
   return (
     <>

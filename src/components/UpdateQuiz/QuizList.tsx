@@ -1,6 +1,6 @@
-import { QuizInfoState } from "../Quiz";
 import { List, ListItem } from "@mui/material";
 import { styled } from "@mui/system";
+import { QuizInfoState } from "../templates/Home";
 
 interface QuizListProps {
   quiz: QuizInfoState["quiz"];
@@ -31,7 +31,7 @@ const QuizList: React.FC<QuizListProps> = ({ quiz }) => {
         );
       })}
     </StyledList>
-  )
+  );
 };
 
 export default QuizList;

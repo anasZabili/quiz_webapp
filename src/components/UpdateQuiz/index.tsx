@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { QuizInfoState } from "../Quiz";
 import QuizList from "./QuizList";
 import { styled } from "@mui/system";
 import { Box } from "@mui/system";
 import DisplayQuiz from "./DisplayQuiz";
+import { QuizInfoState } from "../templates/Home";
 
 const Container = styled(Box)({
   display: "flex",

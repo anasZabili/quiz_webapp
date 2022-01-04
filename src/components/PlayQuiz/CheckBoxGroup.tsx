@@ -52,12 +52,17 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
       <FormControl component="div" disabled={isVerify}>
         <StyledFormGroup>
           {answers?.map((value, index) => {
+            console.log(
+              "🚀 ~ file: CheckBoxGroup.tsx ~ line 68 ~ {answers?.map ~ value",
+              value
+            );
+
             return (
               <>
                 <CheckBoxContainer key={index}>
                   <CenterFormControlLabel
                     control={
-                      <Checkbox value={value.id} onChange={handleChange} />
+                      <Checkbox value={value.text} onChange={handleChange} />
                     }
                     label={value.text}
                   />

@@ -55,20 +55,17 @@ const Question: React.FC<QuestionProps> = ({
   finishQuiz,
   setCurrentScore,
 }) => {
+  console.log("🚀 ~ file: Question.tsx ~ line 58 ~ question", question);
   const ComputedAnswerComponent = (): React.ReactElement => {
     switch (question.type) {
       case 0:
         return (
-          <TextAnswer
-            finishQuiz={finishQuiz}
-            isTheLastQuestion={isTheLastQuestion}
-            nextQuestion={nextQuestion}
-            questionId={question.id}
-          />
-        );
-      // true or false
-      case 1:
-        return (
+          // <TextAnswer
+          //   finishQuiz={finishQuiz}
+          //   isTheLastQuestion={isTheLastQuestion}
+          //   nextQuestion={nextQuestion}
+          //   questionId={question.id}
+          // />
           <MultipleChoiceAnswer
             isSingleChoice={false}
             finishQuiz={finishQuiz}
@@ -78,9 +75,8 @@ const Question: React.FC<QuestionProps> = ({
             questionId={question.id}
           />
         );
-
-      // multiple choice
-      case 2:
+      // true or false
+      case 1:
         return (
           <MultipleChoiceAnswer
             isSingleChoice={true}
@@ -90,11 +86,16 @@ const Question: React.FC<QuestionProps> = ({
             answers={question.answers}
             questionId={question.id}
           />
+          //   <TextAnswer
+          //   finishQuiz={finishQuiz}
+          //   isTheLastQuestion={isTheLastQuestion}
+          //   nextQuestion={nextQuestion}
+          //   questionId={question.id}
+          // />
         );
 
-      // single choice
-
-      case 3:
+      // multiple choice
+      case 2:
         return (
           <TextAnswer
             finishQuiz={finishQuiz}
@@ -103,6 +104,18 @@ const Question: React.FC<QuestionProps> = ({
             questionId={question.id}
           />
         );
+
+      // single choice
+
+      // case 3:
+      //   return (
+      //     <TextAnswer
+      //       finishQuiz={finishQuiz}
+      //       isTheLastQuestion={isTheLastQuestion}
+      //       nextQuestion={nextQuestion}
+      //       questionId={question.id}
+      //     />
+      //   );
       // text
       default:
         return (
