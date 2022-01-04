@@ -3,19 +3,19 @@ import { useState } from "react";
 import CenterForm from "../../atoms/CenterForm";
 import InputAndLabel from "../../molecules/InputAndLabel";
 
-interface CreateQuizTitleForm {
+interface CreateQuizTitleFormProps {
   onSubmit: (values: any) => void;
   defaultValues?: {
-    title: string;
+    name: string;
     password: string;
   };
 }
 
-const CreateQuizTitleForm: React.FC<CreateQuizTitleForm> = ({
+const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
   onSubmit,
   defaultValues,
 }) => {
-  const [title, setTitle] = useState(defaultValues?.title || "");
+  const [title, setTitle] = useState(defaultValues?.name || "");
   const [password, setPassword] = useState(defaultValues?.password || "");
 
   return (
@@ -35,7 +35,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleForm> = ({
       <Button
         onClick={() => {
           const formatedValues = {
-            title: title,
+            name: title,
             password: password,
           };
           onSubmit(formatedValues);

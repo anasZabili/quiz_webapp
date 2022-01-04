@@ -110,7 +110,7 @@ const MulpleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
     <StyledBox>
       <CenterBox>
         <TextInput
-          inputType="text"
+          type="text"
           placeholder={`Question`}
           value={questionText}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

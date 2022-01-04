@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import usePost from "../../../hooks/usePost";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
 
 interface CreateQuizStepperProps {}
 
 export interface CreatedQuizState {
-  title: string;
+  name: string;
   password: string;
   questions: {
     text: string;
@@ -17,11 +19,11 @@ export interface CreatedQuizState {
   }[];
 }
 
-const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
-  const [currentStep, setCurrentStep] = useState(1);
+const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
+  const [currentStep, setCurrentStep] = useState(0);
 
   const [createdQuiz, setCreatedQuiz] = useState<CreatedQuizState>({
-    title: "",
+    name: "",
     password: "",
     questions: Array(5).fill({
       text: "",
@@ -42,11 +44,12 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
     return JSON.parse(JSON.stringify(array));
   };
 
+  const navigate = useNavigate();
+
   const addQuestion = (
     question: CreatedQuizState["questions"][0],
     index: number
   ) => {
-    // deep copy answers into newAnswers
     const newQuestions = cloneArray(createdQuiz.questions);
 
     newQuestions[index].text = question.text;
@@ -56,13 +59,30 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
     return newQuestions;
   };
 
+  const [isFinished, setIsFinished] = useState(false);
+
+  const { axiosPost, response, isLoading, error } = usePost();
+
+  useEffect(() => {
+    if (isFinished) {
+      const url = process.env.REACT_APP_API_BASE + "quiz/create";
+      axiosPost(url, createdQuiz).then((res) => {
+        navigate("/");
+      });
+    }
+    //cleanup
+    return () => {
+      setCurrentStep(8);
+    };
+  }, [isFinished]);
+
   const onSubmit = (values: any) => {
     switch (true) {
       case currentStep === 0:
         setCreatedQuiz((prevState) => {
           return {
             ...prevState,
-            title: values.title,
+            name: values.name,
             password: values.password,
           };
         });
@@ -84,7 +104,9 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
             questions: addQuestion(values, currentStep - 1),
           };
         });
-        setCurrentStep(currentStep + 1);
+        setIsFinished(true);
+
+        // setCurrentStep(currentStep + 1);
 
         break;
 

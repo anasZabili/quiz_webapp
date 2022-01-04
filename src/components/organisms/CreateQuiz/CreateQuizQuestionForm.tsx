@@ -7,12 +7,12 @@ type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
 
-interface CreateQuizQuestionForm {
+interface CreateQuizQuestionFormProps {
   onSubmit: (values: any) => void;
   defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;
 }
 
-const CreateQuizQuestionForm: React.FC<CreateQuizQuestionForm> = ({
+const CreateQuizQuestionForm: React.FC<CreateQuizQuestionFormProps> = ({
   onSubmit,
   defaultValues,
 }) => {
