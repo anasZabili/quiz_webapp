@@ -29,7 +29,6 @@ const TFAnswer: React.FC<TFAnswerProps> = ({
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     setSelectedAnswer(event.target.value);
   };
 

@@ -32,11 +32,11 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
       }),
     }),
   });
+
   console.log(
-    "🚀 ~ file: CreateQuizStepper.tsx ~ line 23 ~ createdQuiz",
+    "🚀 ~ file: CreateQuizStepper.tsx ~ line 36 ~ createdQuiz",
     createdQuiz
   );
-
   // deep clone array fonction
   const cloneArray = (array: any[]) => {
     return JSON.parse(JSON.stringify(array));
@@ -53,16 +53,12 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
     newQuestions[index].type = question.type;
     newQuestions[index].answers = question.answers;
 
-    console.log(
-      "🚀 ~ file: MutipleChoiceInput.tsx ~ line 92 ~ newAnswers",
-      newQuestions
-    );
     return newQuestions;
   };
 
   const onSubmit = (values: any) => {
-    switch (currentStep) {
-      case 0:
+    switch (true) {
+      case currentStep === 0:
         setCreatedQuiz((prevState) => {
           return {
             ...prevState,
@@ -72,34 +68,42 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({}) => {
         });
         setCurrentStep(currentStep + 1);
         break;
-      case 1:
+      case currentStep < 5:
         setCreatedQuiz((prevState) => {
           return {
             ...prevState,
-            questions: addQuestion(values, currentStep),
+            questions: addQuestion(values, currentStep - 1),
           };
         });
+        setCurrentStep(currentStep + 1);
+        break;
+      case currentStep === 5:
+        setCreatedQuiz((prevState) => {
+          return {
+            ...prevState,
+            questions: addQuestion(values, currentStep - 1),
+          };
+        });
+        setCurrentStep(currentStep + 1);
+
         break;
 
       default:
-        return;
+        return <p>Erreur</p>;
     }
   };
 
-  // const nextQuestion = (isCorrect: boolean) => {
-  //   if (isCorrect) {
-  //     setCurrentScore((prevScore) => prevScore + 1);
-  //   }
-  //   setCurrentQuestionNumber(currentQuestionNumber + 1);
-  // };
   const ComputedStepComponent = (): any => {
-    switch (currentStep) {
-      case 0:
+    switch (true) {
+      case currentStep === 0:
         return <CreateQuizTitleForm onSubmit={onSubmit} />;
-      // return <h1>CreateQuizTitleForm</h1>;
-      case 1:
+      case currentStep < 5:
         return <CreateQuizQuestionForm onSubmit={onSubmit} />;
-      //return <h1>CreateQuizQuestionForm</h1>;
+      case currentStep === 5:
+        return <CreateQuizQuestionForm onSubmit={onSubmit} />;
+
+      default:
+        return <p>Erreur</p>;
     }
   };
 

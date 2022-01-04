@@ -10,7 +10,6 @@ const useGet = () => {
     axios
       .get(url, option)
       .then((res: any) => {
-        console.log("🚀 ~ file: useGet.ts ~ line 13 ~ .then ~ res", res);
         setIsLoading(false);
         setResponse(res.data);
         setError(null);

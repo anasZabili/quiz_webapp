@@ -31,7 +31,6 @@ interface QuizPlayProps {
 const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
   const [currentScore, setCurrentScore] = useState(0);
-  console.log("🚀 ~ file: index.tsx ~ line 36 ~ currentScore", currentScore);
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
 
   useEffect(() => {

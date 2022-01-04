@@ -37,22 +37,14 @@ const CreateQuizQuestionForm: React.FC<CreateQuizQuestionForm> = ({
             isCorrect: false,
           }),
   });
-  console.log(
-    "🚀 ~ file: CreateQuizQuestionForm.tsx ~ line 23 ~ question",
-    question
-  );
 
-  const handleQuestionChange = (
-    questionType: number,
-    answers: CreatedQuizState["questions"][0]["answers"],
-    questionText: string
-  ) => {
+  const handleQuestionChange = (question: CreatedQuizState["questions"][0]) => {
     setQuestion((prevState) => {
       return {
         ...prevState,
-        text: questionText,
-        type: questionType,
-        answers: answers,
+        text: question.text,
+        type: question.type,
+        answers: question.answers,
       };
     });
     onSubmit(question);

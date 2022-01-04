@@ -11,7 +11,7 @@ import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import CheckBoxAndLabel from "../../molecules/CheckboxAndLabel";
 import InputAndLabel from "../../molecules/InputAndLabel";
-import { CreatedQuizState } from "./CreateQuizForm";
+import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
 import CenterBox from "../../atoms/CenterBox";
 
@@ -55,12 +55,16 @@ interface MultipleChoiceInputProps {
     text: string;
     answers: { id?: string; text: string; isCorrect: boolean }[];
   };
-  handleChange: (answers: CreatedQuizState["questions"][0]["answers"]) => void;
+  questionType: number;
+  handleChange: (question: CreatedQuizState["questions"][0]) => void;
+  defaultValues?: CreatedQuizState["questions"][0];
 }
 
 const MulpleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   input,
   handleChange,
+  defaultValues,
+  questionType,
 }) => {
   const [answers, setAnswers] = useState<
     { text: string; isCorrect: boolean }[]
@@ -70,8 +74,8 @@ const MulpleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
       isCorrect: false,
     })
   );
-  console.log("🚀 ~ file: MutipleChoiceInput.tsx ~ line 63 ~ answers", answers);
 
+  const [questionText, setQuestionText] = useState(defaultValues?.text || "");
   // useEffect(() => {
   //   handleChange(answers);
   // }, [answers]);
@@ -105,11 +109,19 @@ const MulpleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   return (
     <StyledBox>
       <CenterBox>
+        <TextInput
+          inputType="text"
+          placeholder={`Question`}
+          value={questionText}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setQuestionText(event.target.value)
+          }
+          // label="Mot de passe du Quiz"
+        />
         <StyledFormGroup>
           {Array(4)
             .fill(0)
             ?.map((_, index) => {
-              console.log("index --", answers[index].text);
               return (
                 <Grid>
                   <TextInput
@@ -129,7 +141,15 @@ const MulpleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
               );
             })}
         </StyledFormGroup>
-        <Button onClick={() => handleChange(answers)}>
+        <Button
+          onClick={() =>
+            handleChange({
+              text: questionText,
+              type: questionType,
+              answers: answers,
+            })
+          }
+        >
           Click pr submit le change
         </Button>
       </CenterBox>

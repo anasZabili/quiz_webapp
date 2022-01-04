@@ -56,7 +56,6 @@ const useFetchData = (url: string, params?: any) => {
   useEffect(() => {
     axios.get(url, params).then(
       (res) => {
-        console.log("cocuou le back");
         setError(null);
         setData(res.data);
         setIsLoading(false);

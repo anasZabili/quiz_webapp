@@ -23,8 +23,6 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
     setAnswer(event.target.value);
   };
   const { axiosGet, response, isLoading, error } = useGet();
-  console.log("🚀 ~ file: TextAnswer.tsx ~ line 26 ~ error", error);
-  console.log("🚀 ~ file: TextAnswer.tsx ~ line 26 ~ isLoading", isLoading);
 
   const [isVerify, setIsVerify] = useState(false);
 
@@ -34,7 +32,6 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
       process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
     axiosGet(url);
     // if (!isLoading && !error) {
-    console.log("je set de verify a true");
     setIsVerify(true);
     // }
   };

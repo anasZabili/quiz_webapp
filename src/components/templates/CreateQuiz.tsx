@@ -1,6 +1,5 @@
 import Header from "../organisms/Header";
 import { Box, styled } from "@mui/system";
-import CreateQuizForm from "../organisms/CreateQuiz/CreateQuizForm";
 import CreateQuizStepper from "../organisms/CreateQuiz/CreateQuizStepper";
 
 interface CreateQuizProps {}

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { styled } from "@mui/system";
 import Radio from "../../atoms/Radio";
 import MultipleChoiceInput from "./MutipleChoiceInput";
-import { CreatedQuizState } from "./CreateQuizForm";
+import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
 
 const StyledControlFormLabel = styled(FormControlLabel)({
@@ -26,11 +26,7 @@ type DeepPartial<T> = {
 };
 
 interface RadioTypeOfQuestionNewProps {
-  handleChange: (
-    questionType: number,
-    answers: CreatedQuizState["questions"][0]["answers"],
-    questionText: string
-  ) => void;
+  handleChange: (question: CreatedQuizState["questions"][0]) => void;
   questionTypes: { key: string; value: number }[];
   defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;
 }
@@ -45,17 +41,10 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
     questionTypes[0].value
   );
 
-  const [questionText, setQuestionText] = useState(defaultValues?.text || "");
-
-  console.log(
-    "🚀 ~ file: RadioTypeOfQuestionNew.tsx ~ line 48 ~ questionText",
-    questionText
-  );
-
   const handleInputAnswerChange = (
-    answers: CreatedQuizState["questions"][0]["answers"]
+    question: CreatedQuizState["questions"][0]
   ) => {
-    handleChange(typeOfQuestion, answers, questionText);
+    handleChange(question);
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +62,12 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
 
       // Choix multiple
       case 0:
-        return <MultipleChoiceInput handleChange={handleInputAnswerChange} />;
+        return (
+          <MultipleChoiceInput
+            questionType={typeOfQuestion}
+            handleChange={handleInputAnswerChange}
+          />
+        );
       // choix unique
       case 1:
         return <Typography color="primary">Choix unique</Typography>;
@@ -104,15 +98,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
           />
         ))}
       </StyledRadioGroup>
-      <TextInput
-        inputType="text"
-        placeholder={`Question`}
-        value={questionText}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setQuestionText(event.target.value)
-        }
-        // label="Mot de passe du Quiz"
-      />
+
       <ComputedAnswerComponent />
     </>
   );
