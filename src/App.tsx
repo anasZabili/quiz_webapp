@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CreateQuiz from "./pages/CreateQuiz";
 import PlayQuiz from "./pages/PlayQuiz";
+import UpdateQuiz from "./pages/UpdateQuiz";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/create-quiz" element={<CreateQuiz />} />
             <Route path="/play-quiz/:quizId" element={<PlayQuiz />} />
+            <Route path="/update-quiz" element={<UpdateQuiz />} />
           </Routes>
         </ThemeProvider>
       </Router>
