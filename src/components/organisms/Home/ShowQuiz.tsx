@@ -1,7 +1,7 @@
 import { CardContent, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router";
-import Card from "../../atoms/QuizCard";
+import Card from "../../molecules/QuizCard";
 import { QuizInfoState } from "../../templates/Home";
 
 const Title = styled("h1")({

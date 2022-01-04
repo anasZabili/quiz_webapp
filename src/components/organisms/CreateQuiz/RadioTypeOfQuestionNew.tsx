@@ -5,6 +5,8 @@ import Radio from "../../atoms/Radio";
 import MultipleChoiceInput from "./MutipleChoiceInput";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
+import TextChoice from "./TextChoice";
+import SingleChoiceInput from "./SingleChoiceInput";
 
 const StyledControlFormLabel = styled(FormControlLabel)({
   color: "white",
@@ -70,11 +72,21 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
         );
       // choix unique
       case 1:
-        return <Typography color="primary">Choix unique</Typography>;
+        return (
+          <SingleChoiceInput
+            questionType={typeOfQuestion}
+            handleChange={handleInputAnswerChange}
+          />
+        );
 
       // réponse libre
       case 2:
-        return <Typography color="primary">Réponse libre</Typography>;
+        return (
+          <TextChoice
+            questionType={typeOfQuestion}
+            handleChange={handleInputAnswerChange}
+          />
+        );
       default:
         return <Typography color="primary">Une erreur est survenu</Typography>;
     }

@@ -8,6 +8,7 @@ interface InputAndLabelProps {
   inputType: string;
   placeholder: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  [x: string]: any;
 }
 
 const InputAndLabel: React.FC<InputAndLabelProps> = ({
@@ -15,6 +16,7 @@ const InputAndLabel: React.FC<InputAndLabelProps> = ({
   inputType,
   placeholder,
   onChange,
+  ...props
 }) => {
   return (
     <>
@@ -23,6 +25,7 @@ const InputAndLabel: React.FC<InputAndLabelProps> = ({
         type={inputType}
         placeholder={placeholder}
         onChange={onChange}
+        {...props}
       />
     </>
   );

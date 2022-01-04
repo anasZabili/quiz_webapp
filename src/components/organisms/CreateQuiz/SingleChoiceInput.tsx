@@ -49,13 +49,13 @@ const Grid = styled(Box)({
   margin: "2rem 0",
 });
 
-interface MultipleChoiceInputProps {
+interface SingleChoiceInputProps {
   questionType: number;
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
   defaultValues?: CreatedQuizState["questions"][0];
 }
 
-const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
+const SingleChoiceInput: React.FC<SingleChoiceInputProps> = ({
   handleChange,
   defaultValues,
   questionType,
@@ -69,6 +69,7 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
     })
   );
 
+  console.log("je render le single choice input");
   // deep clone array fonction
   const cloneArray = (array: any[]) => {
     return JSON.parse(JSON.stringify(array));
@@ -85,8 +86,16 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   ) => {
     // deep copy answers into newAnswers
     const newAnswers = cloneArray(answers);
+    // passed all the isCorrect to false
+    newAnswers.forEach((answer: any) => {
+      answer.isCorrect = false;
+    });
 
     newAnswers[index].isCorrect = inputEvent.target.checked;
+    console.log(
+      "🚀 ~ file: SingleChoiceInput.tsx ~ line 95 ~ newAnswers",
+      newAnswers
+    );
     setAnswers(newAnswers);
   };
 
@@ -152,4 +161,4 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   );
 };
 
-export default MultipleChoiceInput;
+export default SingleChoiceInput;

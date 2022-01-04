@@ -2,7 +2,7 @@ import { CardContent, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router";
 import { QuizInfoState } from ".";
-import Card from "../atoms/QuizCard";
+import Card from "../molecules/QuizCard";
 
 const Title = styled("h1")({
   fontSize: "1.3rem",

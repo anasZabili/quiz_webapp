@@ -4,16 +4,18 @@ import { useState } from "react";
 interface CheckBoxAndLabelProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
+  [x: string]: any;
 }
 
 const CheckBoxAndLabel: React.FC<CheckBoxAndLabelProps> = ({
   label,
   onChange,
+  ...props
 }) => {
   const [state, setstate] = useState(false);
   return (
     <FormControlLabel
-      control={<Checkbox color="primary" onChange={onChange} />}
+      control={<Checkbox color="primary" onChange={onChange} {...props} />}
       // color="primary"
       sx={{
         color: "#eef3f8",
