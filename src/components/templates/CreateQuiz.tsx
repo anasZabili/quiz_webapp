@@ -1,6 +1,10 @@
 import Header from "../organisms/Header";
 import { Box, styled } from "@mui/system";
-import CreateQuizStepper from "../organisms/CreateQuiz/CreateQuizStepper";
+import CreateQuizStepper, {
+  CreatedQuizState,
+} from "../organisms/CreateQuiz/CreateQuizStepper";
+import usePost from "../../hooks/usePost";
+import { useNavigate } from "react-router-dom";
 
 interface CreateQuizProps {}
 
@@ -11,10 +15,19 @@ const Container = styled(Box)({
 });
 
 const CreateQuiz: React.FC<CreateQuizProps> = () => {
+  const { axiosPost, response, isLoading, error } = usePost();
+  const navigate = useNavigate();
+
+  const onSubmit = (values: CreatedQuizState) => {
+    const url = process.env.REACT_APP_API_BASE + "quiz/create";
+    axiosPost(url, values).then((res) => {
+      navigate("/");
+    });
+  };
   return (
     <>
       <Header />
-      <Container>{<CreateQuizStepper />}</Container>
+      <Container>{<CreateQuizStepper handleCreate={onSubmit} />}</Container>
     </>
   );
 };

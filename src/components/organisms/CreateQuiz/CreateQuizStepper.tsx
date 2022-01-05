@@ -4,7 +4,9 @@ import usePost from "../../../hooks/usePost";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
 
-interface CreateQuizStepperProps {}
+interface CreateQuizStepperProps {
+  handleCreate: (values: CreatedQuizState) => void;
+}
 
 export interface CreatedQuizState {
   name: string;
@@ -19,7 +21,9 @@ export interface CreatedQuizState {
   }[];
 }
 
-const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
+const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
+  handleCreate,
+}) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const [createdQuiz, setCreatedQuiz] = useState<CreatedQuizState>({
@@ -44,8 +48,6 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
     return JSON.parse(JSON.stringify(array));
   };
 
-  const navigate = useNavigate();
-
   const addQuestion = (
     question: CreatedQuizState["questions"][0],
     index: number
@@ -61,14 +63,9 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
 
   const [isFinished, setIsFinished] = useState(false);
 
-  const { axiosPost, response, isLoading, error } = usePost();
-
   useEffect(() => {
     if (isFinished) {
-      const url = process.env.REACT_APP_API_BASE + "quiz/create";
-      axiosPost(url, createdQuiz).then((res) => {
-        navigate("/");
-      });
+      handleCreate(createdQuiz);
     }
     //cleanup
     return () => {
