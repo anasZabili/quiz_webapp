@@ -1,10 +1,10 @@
-import { QuizInfoState } from "../../Quiz";
 import { List, ListItem, Typography } from "@mui/material";
 import { Box, flexbox, styled } from "@mui/system";
 import usePost from "../../../hooks/usePost";
 import useDelete from "../../../hooks/useDelete";
 import IconButton from "../../atoms/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { QuizInfoState } from "../../templates/Home";
 
 interface QuizListProps {
   quizzes: QuizInfoState["quiz"];

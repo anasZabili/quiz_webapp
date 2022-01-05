@@ -2,9 +2,8 @@ import { useState } from "react";
 import CenterBox from "../../atoms/CenterBox";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import { styled } from "@mui/system";
-import TextInput from "../../atoms/TextInput";
 import { Box, Button, Grid } from "@mui/material";
-import InputAndLabel from "../../molecules/InputAndLabel";
+import TextInput from "../../atoms/TextInput";
 
 interface TextChoiceProps {
   questionType: number;
@@ -45,7 +44,7 @@ const TextChoice: React.FC<TextChoiceProps> = ({
   return (
     // <StyledBox>
     <CenterBox>
-      <InputAndLabel
+      <TextInput
         inputType="text"
         placeholder={`Question`}
         label="Question"
@@ -55,7 +54,7 @@ const TextChoice: React.FC<TextChoiceProps> = ({
         }
         // label="Mot de passe du Quiz"
       />
-      <InputAndLabel
+      <TextInput
         inputType="text"
         placeholder={`Réponse`}
         label="Réponse"

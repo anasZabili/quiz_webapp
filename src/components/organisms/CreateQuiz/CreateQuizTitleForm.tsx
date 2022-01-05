@@ -1,7 +1,7 @@
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useState } from "react";
 import CenterForm from "../../atoms/CenterForm";
-import InputAndLabel from "../../molecules/InputAndLabel";
+import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
 
 interface CreateQuizTitleFormProps {
@@ -17,36 +17,49 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
   const [password, setPassword] = useState("");
 
   return (
-    <CenterForm>
-      <InputAndLabel
-        inputType="text"
-        placeholder="Titre"
-        label="Titre du Quiz"
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      {defaultValues ? (
-        <></>
-      ) : (
-        <InputAndLabel
-          inputType="password"
-          placeholder="Mot de passe"
-          label="Mot de passe du Quiz"
-          onChange={(e) => setPassword(e.target.value)}
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      rowGap={3}
+    >
+      <Grid item xs={12}>
+        <TextInput
+          inputType="text"
+          placeholder="Titre"
+          label="Titre du Quiz"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTitle(e.target.value)
+          }
         />
+      </Grid>
+      {!defaultValues && (
+        <Grid item xs={12}>
+          <TextInput
+            inputType="password"
+            placeholder="Mot de passe"
+            label="Mot de passe du Quiz"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
+          />
+        </Grid>
       )}
-
-      <Button
-        onClick={() => {
-          const formatedValues = {
-            name: title,
-            password: password,
-          };
-          onSubmit(formatedValues);
-        }}
-      >
-        Suivant
-      </Button>
-    </CenterForm>
+      <Grid item xs={12}>
+        <Button
+          onClick={() => {
+            const formatedValues = {
+              name: title,
+              password: password,
+            };
+            onSubmit(formatedValues);
+          }}
+        >
+          Suivant
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 
