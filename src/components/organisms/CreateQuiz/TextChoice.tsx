@@ -1,8 +1,7 @@
 import { useState } from "react";
 import CenterBox from "../../atoms/CenterBox";
 import { CreatedQuizState } from "./CreateQuizStepper";
-import { styled } from "@mui/system";
-import { Box, Button, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 import TextInput from "../../atoms/TextInput";
 
 interface TextChoiceProps {
@@ -10,14 +9,6 @@ interface TextChoiceProps {
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
   defaultValues?: CreatedQuizState["questions"][0];
 }
-
-const StyledBox = styled(Box)({
-  display: "grid",
-  gridTemplateColumns: "auto auto",
-  gridGap: "1rem",
-  alignItems: "center",
-  justifyItems: "center",
-});
 
 const TextChoice: React.FC<TextChoiceProps> = ({
   questionType,

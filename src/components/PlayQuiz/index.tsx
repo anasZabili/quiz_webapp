@@ -73,7 +73,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     <Grid
       container
       justifyContent="center"
-      direction="row"
+      direction="column"
       alignItems="center"
       rowSpacing={5}
     >
@@ -97,7 +97,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
           <Grid
             container
             justifyContent="center"
-            direction="row"
+            direction="column"
             alignItems="center"
             rowSpacing={5}
           >
@@ -111,7 +111,8 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
               xs={12}
               container
               justifyContent="center"
-              direction="row"
+              alignItems="center"
+              direction="column"
               rowGap={2}
             >
               <Grid item xs={12}>

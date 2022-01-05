@@ -41,6 +41,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
             inputType="password"
             placeholder="Mot de passe"
             label="Mot de passe du Quiz"
+            type="password"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value)
             }

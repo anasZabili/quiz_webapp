@@ -4,10 +4,6 @@ import { UpdateQuizState } from "../UpdateQuiz";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import RadioTypeOfQuestionNew from "./RadioTypeOfQuestionNew";
 
-type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};
-
 interface CreateQuizQuestionFormProps {
   onSubmit: (values: any) => void;
   //defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;

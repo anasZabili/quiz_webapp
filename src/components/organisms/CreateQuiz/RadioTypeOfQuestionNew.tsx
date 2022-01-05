@@ -4,9 +4,7 @@ import { styled } from "@mui/system";
 import Radio from "../../atoms/Radio";
 import MultipleChoiceInput from "./MutipleChoiceInput";
 import { CreatedQuizState } from "./CreateQuizStepper";
-import TextInput from "../../atoms/TextInput";
 import TextChoice from "./TextChoice";
-import SingleChoiceInput from "./SingleChoiceInput";
 import { UpdateQuizState } from "../UpdateQuiz";
 
 const StyledControlFormLabel = styled(FormControlLabel)({
@@ -18,15 +16,7 @@ const StyledRadioGroup = styled(RadioGroup)({
   flexDirection: "row",
   justifyContent: "center",
   margin: "0",
-  // alignItems: "center",
-  // "& > *": {
-  //   marginBottom: "1em",
-  // },
 });
-
-type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};
 
 interface RadioTypeOfQuestionNewProps {
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
@@ -75,10 +65,11 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
       // choix unique
       case 1:
         return (
-          <SingleChoiceInput
+          <MultipleChoiceInput
             questionType={typeOfQuestion}
             handleChange={handleInputAnswerChange}
             defaultValues={defaultValues}
+            isSingleChoice={true}
           />
         );
 
