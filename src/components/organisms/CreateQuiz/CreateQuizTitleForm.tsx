@@ -29,6 +29,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
           inputType="text"
           placeholder="Titre"
           label="Titre du Quiz"
+          defaultValue={defaultValues?.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setTitle(e.target.value)
           }
