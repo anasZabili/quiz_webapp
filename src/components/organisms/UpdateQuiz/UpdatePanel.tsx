@@ -1,6 +1,7 @@
 import { Card as MuiCard, CardContent, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { UpdateQuizState } from ".";
+import CreateQuizStepper from "../CreateQuiz/CreateQuizStepper";
 
 interface UpdateQuizPanelProps {
   quiz: UpdateQuizState;
@@ -14,11 +15,15 @@ const StyledCard = styled(MuiCard)({
 });
 
 const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz }) => {
+  const onSubmit = () => {
+    console.log("COUCOU");
+  };
+
   return (
     <StyledCard>
       <CardContent>
         {quiz ? (
-          <Typography color="primary">On a un quiz</Typography>
+          <CreateQuizStepper handleCreate={onSubmit} />
         ) : (
           <Typography color="primary">Aucun quiz </Typography>
         )}

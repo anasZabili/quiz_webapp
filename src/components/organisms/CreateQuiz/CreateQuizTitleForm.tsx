@@ -41,7 +41,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
           onSubmit(formatedValues);
         }}
       >
-        Créer le Quiz
+        Suivant
       </Button>
     </CenterForm>
   );

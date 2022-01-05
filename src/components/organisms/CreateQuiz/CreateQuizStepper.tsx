@@ -5,7 +5,7 @@ import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
 
 interface CreateQuizStepperProps {
-  handleCreate: (values: CreatedQuizState) => void;
+  handleCreate: (values: any) => void;
 }
 
 export interface CreatedQuizState {
