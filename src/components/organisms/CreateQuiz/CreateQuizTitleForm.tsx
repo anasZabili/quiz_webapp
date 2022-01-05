@@ -19,7 +19,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
   return (
     <Grid
       container
-      direction="row"
+      direction="column"
       justifyContent="center"
       alignItems="center"
       rowGap={3}
@@ -29,6 +29,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
           inputType="text"
           placeholder="Titre"
           label="Titre du Quiz"
+          defaultValue={defaultValues?.name}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setTitle(e.target.value)
           }

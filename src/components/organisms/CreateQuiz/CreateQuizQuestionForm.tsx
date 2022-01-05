@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useFetchData from "../../../hooks/useFetchData";
+import { UpdateQuizState } from "../UpdateQuiz";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import RadioTypeOfQuestionNew from "./RadioTypeOfQuestionNew";
 
@@ -9,7 +10,8 @@ type DeepPartial<T> = {
 
 interface CreateQuizQuestionFormProps {
   onSubmit: (values: any) => void;
-  defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;
+  //defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;
+  defaultValues?: UpdateQuizState["questions"][0];
 }
 
 const CreateQuizQuestionForm: React.FC<CreateQuizQuestionFormProps> = ({
@@ -26,7 +28,7 @@ const CreateQuizQuestionForm: React.FC<CreateQuizQuestionFormProps> = ({
       defaultValues &&
       defaultValues.answers &&
       defaultValues.answers?.length > 0
-        ? defaultValues.answers.map((value) => {
+        ? defaultValues.answers.map((value: { text: any; isCorrect: any }) => {
             return {
               text: value?.text || "",
               isCorrect: value?.isCorrect || false,

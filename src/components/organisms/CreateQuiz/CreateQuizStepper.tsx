@@ -125,9 +125,19 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
           />
         );
       case currentStep < 5:
-        return <CreateQuizQuestionForm onSubmit={onSubmit} />;
+        return (
+          <CreateQuizQuestionForm
+            defaultValues={defaultValues?.questions[currentStep]}
+            onSubmit={onSubmit}
+          />
+        );
       case currentStep === 5:
-        return <CreateQuizQuestionForm onSubmit={onSubmit} />;
+        return (
+          <CreateQuizQuestionForm
+            defaultValues={defaultValues?.questions[currentStep]}
+            onSubmit={onSubmit}
+          />
+        );
 
       default:
         return <p>Erreur</p>;
