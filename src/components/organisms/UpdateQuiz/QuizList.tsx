@@ -9,13 +9,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 interface QuizListProps {
   quizzes: QuizInfoState["quiz"];
   refetch: () => void;
+  onClick: (quiz: QuizInfoState["quiz"][0]) => void;
 }
 
 const StyledList = styled(List)({
   backgroundColor: "#42424216",
-  borderRadius: "5px",
+  borderRadius: "1rem",
   boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
-  width: "20%",
+  width: "100%",
 });
 
 const StyledListItem = styled(ListItem)({
@@ -27,9 +28,10 @@ const StyledListItem = styled(ListItem)({
   padding: "0.9rem",
   display: "flex",
   justifyContent: "space-between",
+  cursor: "pointer",
 });
 
-const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch }) => {
+const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch, onClick }) => {
   const { axiosDelete, response, isLoading, error } = useDelete();
 
   const handleOnDelete = (id: string) => {
@@ -44,7 +46,7 @@ const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch }) => {
       {quizzes.length > 0 ? (
         quizzes.map((quiz, value) => {
           return (
-            <StyledListItem key={quiz.id}>
+            <StyledListItem key={quiz.id} onClick={() => onClick(quiz)}>
               {quiz.name}
               <IconButton
                 onClick={() => handleOnDelete(quiz.id)}

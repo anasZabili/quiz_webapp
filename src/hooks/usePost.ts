@@ -4,7 +4,7 @@ import axios from "axios";
 const usePost = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>(null);
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState<any>(null);
 
   const axiosPost = (url: string, body: any, option?: any): Promise<any> => {
     return axios
