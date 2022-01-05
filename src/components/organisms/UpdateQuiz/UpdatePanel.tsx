@@ -2,6 +2,7 @@ import {
   Button,
   Card as MuiCard,
   CardContent,
+  Divider,
   Grid,
   Typography,
 } from "@mui/material";
@@ -27,6 +28,7 @@ const StyledCard = styled(MuiCard)({
   borderRadius: "1rem",
   boxShadow: "0px 0px 10px 0px #535353",
   backgroundColor: "#42424216",
+  height: "100%",
 });
 
 const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
@@ -73,27 +75,47 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
 
   return (
     <StyledCard>
-      <CardContent>
+      <CardContent sx={{ height: "100%" }}>
         {quiz ? (
-          <Grid container spacing={2} direction="column">
-            <Grid item xs={12}>
-              <CreateQuizStepper handleCreate={onSubmit} defaultValues={quiz} />
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ height: "100%" }}
+            wrap="nowrap"
+          >
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              item
+              xs={12}
+            >
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  endIcon={<PublishIcon />}
+                  onClick={() => handleOnPublish(quiz.id)}
+                >
+                  Publier
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  variant="outlined"
+                  endIcon={<DeleteIcon />}
+                  onClick={() => handleOnDelete(quiz.id)}
+                >
+                  Supprimer
+                </Button>
+              </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Button
-                variant="outlined"
-                endIcon={<PublishIcon />}
-                onClick={() => handleOnPublish(quiz.id)}
-              >
-                Publier
-              </Button>
-              <Button
-                variant="outlined"
-                endIcon={<DeleteIcon />}
-                onClick={() => handleOnDelete(quiz.id)}
-              >
-                Supprimer
-              </Button>
+              <CreateQuizStepper handleCreate={onSubmit} defaultValues={quiz} />
+              <Divider variant="middle" />
             </Grid>
           </Grid>
         ) : (
