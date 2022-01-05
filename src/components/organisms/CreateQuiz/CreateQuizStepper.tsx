@@ -88,14 +88,15 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   const onSubmit = (values: any) => {
     switch (true) {
       case currentStep === 0:
-        if (quizzesData.some((q: any) => q.Name === values))
-          setCreatedQuiz((prevState) => {
-            return {
-              ...prevState,
-              name: values.name,
-              password: values.password,
-            };
-          });
+        if (quizzesData.some((q: any) => q.Name === values)) {
+        }
+        setCreatedQuiz((prevState) => {
+          return {
+            ...prevState,
+            name: values.name,
+            password: values.password,
+          };
+        });
 
         setCurrentStep(currentStep + 1);
         break;

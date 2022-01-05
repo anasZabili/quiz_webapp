@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { Box, styled } from "@mui/system";
 import { PlayableQuizState } from "../../pages/PlayQuiz";
 import Question from "./Question";
@@ -7,7 +7,8 @@ import TypoGraphyBebasNeue from "../atoms/TypographyBebasNeue";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../atoms/TextInput";
 import usePost from "../../hooks/usePost";
-
+import { toast } from "react-toastify";
+import { customSuccessToast } from "../../utils/customToast";
 const Container = styled(Box)({
   height: "85vh",
 });
@@ -38,9 +39,18 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [username, setUsername] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
   console.log("🚀 ~ file: index.tsx ~ line 40 ~ username", !!username);
 
-  const { axiosPost, response, isLoading, error, clearField } = usePost();
+  const { axiosPost, response, isLoading, error } = usePost();
+
+  // const calculateScore = () => {
+  //   return (curent / quiz.questions.length) * 100;
+  // };
+
+  const calculatedScore = useMemo(() => {
+    return (currentScore / quiz.questions.length) * 100;
+  }, [currentScore, quiz.questions.length]);
 
   useEffect(() => {
     if (currentQuestionNumber === quiz.questions.length - 1) {
@@ -68,11 +78,15 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     const url = process.env.REACT_APP_API_BASE + "score/create";
     const formatedValues = {
       username: username,
-      score: currentScore,
+      score: calculatedScore,
       quizid: quiz.id,
     };
     axiosPost(url, formatedValues).then((res) => {
       console.log("response", res);
+      if (!error) {
+        // handle Toast
+        customSuccessToast("title", "message");
+      }
       navigate("/");
     });
   };
@@ -82,73 +96,83 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   };
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      direction="column"
-      alignItems="center"
-      rowSpacing={5}
-    >
-      <Grid item xs={12}>
-        <TypoGraphyBebasNeue align="center" variant="h2" sx={{ color: "gray" }}>
-          {quiz.name}
-        </TypoGraphyBebasNeue>
-      </Grid>
-      <Grid item xs={12}>
-        {!isFinished ? (
-          <QuestionContainer>
-            <Question
-              question={quiz.questions[currentQuestionNumber]}
-              nextQuestion={nextQuestion}
-              isTheLastQuestion={isTheLastQuestion}
-              finishQuiz={finishQuiz}
-              setCurrentScore={setCurrentScore}
-            />
-          </QuestionContainer>
-        ) : (
-          <Grid
-            container
-            justifyContent="center"
-            direction="column"
-            alignItems="center"
-            rowSpacing={5}
+    <>
+      <Grid
+        container
+        justifyContent="center"
+        direction="column"
+        alignItems="center"
+        rowSpacing={5}
+      >
+        <Grid item xs={12}>
+          <TypoGraphyBebasNeue
+            align="center"
+            variant="h2"
+            sx={{ color: "gray" }}
           >
-            <Grid item xs={12}>
-              <TypoGraphyBebasNeue align="center" variant="h3" color="primary">
-                Votre score est {(currentScore / quiz.questions.length) * 100}
-              </TypoGraphyBebasNeue>
-            </Grid>
+            {quiz.name}
+          </TypoGraphyBebasNeue>
+        </Grid>
+        <Grid item xs={12}>
+          {!isFinished ? (
+            <QuestionContainer>
+              <Question
+                question={quiz.questions[currentQuestionNumber]}
+                nextQuestion={nextQuestion}
+                isTheLastQuestion={isTheLastQuestion}
+                finishQuiz={finishQuiz}
+                setCurrentScore={setCurrentScore}
+              />
+            </QuestionContainer>
+          ) : (
             <Grid
-              item
-              xs={12}
               container
               justifyContent="center"
-              alignItems="center"
               direction="column"
-              rowGap={2}
+              alignItems="center"
+              rowSpacing={5}
             >
               <Grid item xs={12}>
-                <TextInput
-                  placeholder="Nom d'utilisateur"
-                  label="Nom d'utilisateur"
-                  onChange={handleUsernameChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  onClick={handleFinishedClick}
-                  disabled={!username}
+                <TypoGraphyBebasNeue
+                  align="center"
+                  variant="h3"
                   color="primary"
                 >
-                  Envoyer mon score
-                </Button>
+                  Votre score est {calculatedScore}
+                </TypoGraphyBebasNeue>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                container
+                justifyContent="center"
+                alignItems="center"
+                direction="column"
+                rowGap={2}
+              >
+                <Grid item xs={12}>
+                  <TextInput
+                    placeholder="Nom d'utilisateur"
+                    label="Nom d'utilisateur"
+                    onChange={handleUsernameChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    onClick={handleFinishedClick}
+                    disabled={!username}
+                    color="primary"
+                  >
+                    Envoyer mon score
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        )}
+          )}
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

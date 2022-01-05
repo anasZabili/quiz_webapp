@@ -69,6 +69,7 @@ const TextChoice: React.FC<TextChoiceProps> = ({
             answers: [answer],
           })
         }
+        disabled={!answer}
       >
         Click pr submit le change
       </Button>

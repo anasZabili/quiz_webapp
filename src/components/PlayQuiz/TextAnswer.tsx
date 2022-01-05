@@ -67,7 +67,7 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
         ))}
 
       {!isVerify ? (
-        <Button variant="contained" onClick={handleVerify}>
+        <Button variant="contained" onClick={handleVerify} disabled={!answer}>
           Vérifier
         </Button>
       ) : isTheLastQuestion ? (

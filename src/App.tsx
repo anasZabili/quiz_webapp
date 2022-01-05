@@ -4,6 +4,8 @@ import CreateQuiz from "./pages/CreateQuiz";
 import PlayQuiz from "./pages/PlayQuiz";
 import UpdateQuiz from "./pages/UpdateQuiz";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme({
   palette: {
@@ -37,6 +39,17 @@ function App() {
           </Routes>
         </ThemeProvider>
       </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
