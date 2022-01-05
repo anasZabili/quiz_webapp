@@ -66,9 +66,7 @@ const CssTextField = styled(TextField)({
 });
 
 const TextInput = ({ ...props }) => {
-  return (
-    <CssTextField color="primary" variant="outlined" label="test" {...props} />
-  );
+  return <CssTextField color="primary" variant="outlined" {...props} />;
 };
 
 export default TextInput;

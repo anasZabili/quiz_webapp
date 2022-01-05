@@ -19,7 +19,7 @@ interface MultipleChoiceAnswerProps {
 
 interface CheckboxsState {
   checkboxsState: {
-    text: string;
+    id: string;
     isChecked: boolean;
   }[];
 }
@@ -32,15 +32,7 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   isSingleChoice,
   questionId,
 }) => {
-  console.log(
-    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 36 ~ questionId",
-    questionId
-  );
   const [checked, setChecked] = useState<CheckboxsState["checkboxsState"]>();
-  console.log(
-    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 50 ~ checked",
-    checked
-  );
 
   const [isVerify, setIsVerify] = useState(false);
 
@@ -58,18 +50,10 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = event.target;
-    console.log(
-      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 71 ~ handleChange ~ checked",
-      checked
-    );
-    const text = event.target.value;
-    console.log(
-      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 72 ~ handleChange ~ id",
-      text
-    );
+    const id = event.target.value;
     setChecked((prevState) => {
       const newState = prevState?.map((item) => {
-        if (item.text === text) {
+        if (item.id === id) {
           return { ...item, isChecked: checked };
         }
         return item;
@@ -80,48 +64,35 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
 
   const handleVerify = () => {
     if (isVerify) return;
+
     const url =
       process.env.REACT_APP_API_BASE + `answers/correct/${questionId}`;
-    console.log(
-      "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 84 ~ handleVerify ~ url",
-      url
-    );
     axiosGet(url);
-    if (!isLoading && !error) {
-      setIsVerify(true);
-    }
+    // if (!isLoading) {
+    setIsVerify(true);
+    // }
   };
   const isCorrectAnswer = useCallback((): boolean => {
-    if (!response || !checked) return false;
+    const hasOneCheckedCorrect = checked?.find((item) => item.isChecked);
+    if (!response || !hasOneCheckedCorrect) {
+      return false;
+    }
+
     const correctAnswersIds = response.map((item: { id: any }) => item.id);
-    const playerAnswersIds = checked.map((item) => {
-      if (item.isChecked) return item.text;
+    const playerAnswersIds = checked?.map((item) => {
+      if (item.isChecked) return item.id;
       return null;
     });
+    const playerAnswersIdsWithoutNull = playerAnswersIds?.filter(
+      (item) => item !== null
+    );
 
-    // check if correctAnswersIds is equal to playerAnswersIds
     return (
       correctAnswersIds.every((item: string | null) =>
-        playerAnswersIds.includes(item)
-      ) && playerAnswersIds.length === correctAnswersIds.length
+        playerAnswersIdsWithoutNull?.includes(item)
+      ) && playerAnswersIdsWithoutNull?.length === correctAnswersIds.length
     );
   }, [checked, response]);
-
-  // const isCorrectAnswer = (): boolean => {
-  //   if (!response || !checked) return false;
-  //   const correctAnswersIds = response.map((item: { id: any }) => item.id);
-  //   const playerAnswersIds = checked.map((item) => {
-  //     if (item.isChecked) return item.id;
-  //     return null;
-  //   });
-
-  //   // check if carrectAnswersIds is equal to playerAnswersIds
-  //   return (
-  //     correctAnswersIds.every((item: string | null) =>
-  //       playerAnswersIds.includes(item)
-  //     ) && playerAnswersIds.length === correctAnswersIds.length
-  //   );
-  // };
 
   const hasAtLeastOneAnswer = (): boolean => {
     if (!checked) return false;

@@ -4,7 +4,6 @@ import TextInput from "../atoms/TextInput";
 import InputLabel from "../atoms/InputLabel";
 
 interface InputAndLabelProps {
-  label?: string;
   inputType: string;
   placeholder: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -12,7 +11,6 @@ interface InputAndLabelProps {
 }
 
 const InputAndLabel: React.FC<InputAndLabelProps> = ({
-  label,
   inputType,
   placeholder,
   onChange,
@@ -20,7 +18,6 @@ const InputAndLabel: React.FC<InputAndLabelProps> = ({
 }) => {
   return (
     <>
-      {label && <InputLabel htmlFor="my-input">{label}</InputLabel>}
       <TextInput
         type={inputType}
         placeholder={placeholder}

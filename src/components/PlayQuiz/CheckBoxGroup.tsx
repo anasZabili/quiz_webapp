@@ -62,7 +62,7 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
                 <CheckBoxContainer key={index}>
                   <CenterFormControlLabel
                     control={
-                      <Checkbox value={value.text} onChange={handleChange} />
+                      <Checkbox value={value.id} onChange={handleChange} />
                     }
                     label={value.text}
                   />
