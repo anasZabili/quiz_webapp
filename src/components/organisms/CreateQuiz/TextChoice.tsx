@@ -3,11 +3,12 @@ import CenterBox from "../../atoms/CenterBox";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import { Button } from "@mui/material";
 import TextInput from "../../atoms/TextInput";
+import { UpdateQuizState } from "../UpdateQuiz";
 
 interface TextChoiceProps {
   questionType: number;
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
-  defaultValues?: CreatedQuizState["questions"][0];
+  defaultValues?: UpdateQuizState["questions"][0];
 }
 
 const TextChoice: React.FC<TextChoiceProps> = ({
@@ -15,11 +16,19 @@ const TextChoice: React.FC<TextChoiceProps> = ({
   handleChange,
   defaultValues,
 }) => {
+  console.log(
+    "🚀 ~ file: TextChoice.tsx ~ line 19 ~ defaultValues",
+    defaultValues
+  );
   const [answer, setAnswer] = useState<{ text: string; isCorrect: boolean }>({
-    text: "",
+    text: defaultValues?.answers[0].text || "",
     isCorrect: true,
   });
   const [questionText, setQuestionText] = useState(defaultValues?.text || "");
+  console.log(
+    "🚀 ~ file: TextChoice.tsx ~ line 28 ~ questionText",
+    questionText
+  );
 
   // deep clone array fonction
 

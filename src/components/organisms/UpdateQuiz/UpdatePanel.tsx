@@ -55,7 +55,7 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
     );
     const url = process.env.REACT_APP_API_BASE + "quiz/" + quiz.id;
     axiosPut(url, values).then((res) => {
-      navigate("/");
+      refetch();
     });
   };
 

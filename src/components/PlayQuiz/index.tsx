@@ -6,6 +6,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import TypoGraphyBebasNeue from "../atoms/TypographyBebasNeue";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../atoms/TextInput";
+import usePost from "../../hooks/usePost";
 
 const Container = styled(Box)({
   height: "85vh",
@@ -39,6 +40,8 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [username, setUsername] = useState("");
   console.log("🚀 ~ file: index.tsx ~ line 40 ~ username", !!username);
 
+  const { axiosPost, response, isLoading, error, clearField } = usePost();
+
   useEffect(() => {
     if (currentQuestionNumber === quiz.questions.length - 1) {
       setIsTheLastQuestion(true);
@@ -62,7 +65,16 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const navigate = useNavigate();
 
   const handleFinishedClick = () => {
-    navigate("/");
+    const url = process.env.REACT_APP_API_BASE + "score/create";
+    const formatedValues = {
+      username: username,
+      score: currentScore,
+      quizid: quiz.id,
+    };
+    axiosPost(url, formatedValues).then((res) => {
+      console.log("response", res);
+      navigate("/");
+    });
   };
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

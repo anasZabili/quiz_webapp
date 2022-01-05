@@ -1,9 +1,10 @@
 import { FormGroup, Button, Grid } from "@mui/material";
 import { styled } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckBoxAndLabel from "../../molecules/CheckboxAndLabel";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
+import { UpdateQuizState } from "../UpdateQuiz";
 
 const StyledFormGroup = styled(FormGroup)({
   display: "grid",
@@ -16,7 +17,7 @@ const StyledFormGroup = styled(FormGroup)({
 interface MultipleChoiceInputProps {
   questionType: number;
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
-  defaultValues?: CreatedQuizState["questions"][0];
+  defaultValues?: UpdateQuizState["questions"][0];
   isSingleChoice?: boolean;
 }
 
@@ -26,18 +27,57 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   questionType,
   isSingleChoice = false,
 }) => {
+  const fillDefaultValue = (
+    array: {
+      text: "";
+      isCorrect: false;
+    }[]
+  ) => {
+    while (array.length < 4) {
+      array.push({
+        text: "",
+        isCorrect: false,
+      });
+    }
+    return array;
+  };
+
   const [answers, setAnswers] = useState<
     { text: string; isCorrect: boolean }[]
   >(
-    Array(4).fill({
-      text: "",
-      isCorrect: false,
-    })
+    defaultValues && defaultValues.answers && defaultValues.answers?.length > 0
+      ? fillDefaultValue(
+          defaultValues.answers.map((value: { text: any; isCorrect: any }) => {
+            return {
+              text: value?.text || "",
+              isCorrect: value?.isCorrect || false,
+            };
+          })
+        )
+      : Array(4).fill({
+          text: "",
+          isCorrect: false,
+        })
   );
+  console.log("🚀 ~ file: MutipleChoiceInput.tsx ~ line 31 ~ answers", answers);
 
   const cloneArray = (array: any[]) => {
     return JSON.parse(JSON.stringify(array));
   };
+
+  useEffect(() => {
+    console.log("je suis o debut du useEffect");
+    if (answers.length < 4) {
+      const newAnswers = cloneArray(answers);
+      while (newAnswers.length < 4) {
+        newAnswers.push({
+          text: "",
+          isCorrect: false,
+        });
+      }
+      setAnswers(newAnswers);
+    }
+  }, []);
 
   const [questionText, setQuestionText] = useState(defaultValues?.text || "");
 

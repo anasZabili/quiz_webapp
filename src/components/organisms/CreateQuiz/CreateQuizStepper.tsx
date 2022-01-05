@@ -1,5 +1,7 @@
+import { CircularProgress, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useFetchData from "../../../hooks/useFetchData";
 import usePost from "../../../hooks/usePost";
 import { UpdateQuizState } from "../UpdateQuiz";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
@@ -27,6 +29,13 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   handleCreate,
   defaultValues,
 }) => {
+  const quizzesUrl = process.env.REACT_APP_API_BASE + "questions/quizzes";
+  const {
+    error: quizzesError,
+    isLoading: quizzesIsLoading,
+    data: quizzesData,
+  } = useFetchData(quizzesUrl);
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const [createdQuiz, setCreatedQuiz] = useState<CreatedQuizState>({
@@ -79,13 +88,15 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   const onSubmit = (values: any) => {
     switch (true) {
       case currentStep === 0:
-        setCreatedQuiz((prevState) => {
-          return {
-            ...prevState,
-            name: values.name,
-            password: values.password,
-          };
-        });
+        if (quizzesData.some((q: any) => q.Name === values))
+          setCreatedQuiz((prevState) => {
+            return {
+              ...prevState,
+              name: values.name,
+              password: values.password,
+            };
+          });
+
         setCurrentStep(currentStep + 1);
         break;
       case currentStep < 5:
@@ -144,7 +155,17 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
     }
   };
 
-  return <ComputedStepComponent />;
+  return (
+    <>
+      {quizzesIsLoading ? (
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <ComputedStepComponent />
+      )}
+    </>
+  );
 };
 
 export default CreateQuizStepper;
