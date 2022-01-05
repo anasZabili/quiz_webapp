@@ -45,6 +45,7 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
   const [open, setOpen] = useState(false);
 
   const { axiosPost, response, isLoading, error } = usePost();
+  console.log("🚀 ~ file: index.tsx ~ line 48 ~ response", response);
 
   const handleOnClick = (quiz: QuizInfoState["quiz"][0]) => {
     console.log("QUIZ selct : ", quiz);
@@ -53,8 +54,6 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
   };
 
   const handleValidatePassword = (value: string) => {
-    console.log(" l'id du qui", selectedQuiz?.id);
-    console.log("le password du quiz", value);
     if (selectedQuiz?.id) {
       const url =
         process.env.REACT_APP_API_BASE +

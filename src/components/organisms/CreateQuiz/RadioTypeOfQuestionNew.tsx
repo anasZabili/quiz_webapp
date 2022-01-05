@@ -7,6 +7,7 @@ import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
 import TextChoice from "./TextChoice";
 import SingleChoiceInput from "./SingleChoiceInput";
+import { UpdateQuizState } from "../UpdateQuiz";
 
 const StyledControlFormLabel = styled(FormControlLabel)({
   color: "white",
@@ -30,7 +31,7 @@ type DeepPartial<T> = {
 interface RadioTypeOfQuestionNewProps {
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
   questionTypes: { key: string; value: number }[];
-  defaultValues?: DeepPartial<CreatedQuizState["questions"][0]>;
+  defaultValues?: UpdateQuizState["questions"][0];
 }
 
 const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
@@ -40,7 +41,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
 }) => {
   // const [selectedAnswer, setSelectedAnswer] = useState(questionTypes[0].value);
   const [typeOfQuestion, setTypeOfQuestion] = useState<number>(
-    questionTypes[0].value
+    defaultValues?.type || questionTypes[0].value
   );
 
   const handleInputAnswerChange = (
@@ -68,6 +69,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
           <MultipleChoiceInput
             questionType={typeOfQuestion}
             handleChange={handleInputAnswerChange}
+            defaultValues={defaultValues}
           />
         );
       // choix unique
@@ -76,6 +78,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
           <SingleChoiceInput
             questionType={typeOfQuestion}
             handleChange={handleInputAnswerChange}
+            defaultValues={defaultValues}
           />
         );
 
@@ -85,6 +88,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
           <TextChoice
             questionType={typeOfQuestion}
             handleChange={handleInputAnswerChange}
+            defaultValues={defaultValues}
           />
         );
       default:

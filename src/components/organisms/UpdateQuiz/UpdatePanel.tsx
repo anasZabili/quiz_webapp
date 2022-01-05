@@ -1,7 +1,11 @@
 import { Card as MuiCard, CardContent, Typography } from "@mui/material";
 import { styled } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 import { UpdateQuizState } from ".";
-import CreateQuizStepper from "../CreateQuiz/CreateQuizStepper";
+import usePut from "../../../hooks/usePut";
+import CreateQuizStepper, {
+  CreatedQuizState,
+} from "../CreateQuiz/CreateQuizStepper";
 
 interface UpdateQuizPanelProps {
   quiz: UpdateQuizState;
@@ -15,8 +19,18 @@ const StyledCard = styled(MuiCard)({
 });
 
 const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz }) => {
-  const onSubmit = () => {
-    console.log("COUCOU");
+  const { axiosPut, response, isLoading, error } = usePut();
+  const navigate = useNavigate();
+
+  const onSubmit = (values: CreatedQuizState) => {
+    console.log(
+      "🚀 ~ file: UpdatePanel.tsx ~ line 24 ~ onSubmit ~ values",
+      values
+    );
+    const url = process.env.REACT_APP_API_BASE + "quiz/" + quiz.id;
+    axiosPut(url, values).then((res) => {
+      navigate("/");
+    });
   };
 
   return (

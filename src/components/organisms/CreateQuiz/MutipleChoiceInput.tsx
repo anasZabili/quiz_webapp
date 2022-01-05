@@ -15,6 +15,7 @@ import InputAndLabel from "../../molecules/InputAndLabel";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
 import CenterBox from "../../atoms/CenterBox";
+import { UpdateQuizState } from "../UpdateQuiz";
 
 const StyledBox = styled(Box)({
   display: "grid",
@@ -53,7 +54,7 @@ const CheckBoxContainer = styled(Box)({
 interface MultipleChoiceInputProps {
   questionType: number;
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
-  defaultValues?: CreatedQuizState["questions"][0];
+  defaultValues?: UpdateQuizState["questions"][0];
 }
 
 const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
@@ -64,11 +65,20 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   const [answers, setAnswers] = useState<
     { text: string; isCorrect: boolean }[]
   >(
-    Array(4).fill({
-      text: "",
-      isCorrect: false,
-    })
+    defaultValues && defaultValues.answers && defaultValues.answers?.length > 0
+      ? defaultValues.answers.map((value: { text: any; isCorrect: any }) => {
+          return {
+            text: value?.text || "",
+            isCorrect: value?.isCorrect || false,
+          };
+        })
+      : Array(4).fill({
+          text: "",
+          isCorrect: false,
+        })
   );
+
+  console.log("state defaultValues", defaultValues);
 
   // deep clone array fonction
   const cloneArray = (array: any[]) => {
@@ -142,7 +152,7 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       handleInputChange(e, index)
                     }
-                    // label="Mot de passe du Quiz"
+                    label={`Réponse ${index + 1}`}
                   />
                   <CheckBoxAndLabel
                     label="Correct"
