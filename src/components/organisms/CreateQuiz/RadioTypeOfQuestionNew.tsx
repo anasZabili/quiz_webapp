@@ -103,7 +103,7 @@ const RadioTypeOfQuestionNew: React.FC<RadioTypeOfQuestionNewProps> = ({
       >
         {questionTypes.map((questionType, index) => (
           <StyledControlFormLabel
-            key={questionType.value}
+            key={questionType.key}
             value={questionType.value}
             control={<Radio />}
             label={questionType.key}

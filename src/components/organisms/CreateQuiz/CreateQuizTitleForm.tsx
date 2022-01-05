@@ -19,7 +19,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
   return (
     <Grid
       container
-      direction="row"
+      direction="column"
       justifyContent="center"
       alignItems="center"
       rowGap={3}
