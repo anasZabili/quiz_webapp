@@ -1,10 +1,11 @@
-import { List, ListItem, Typography } from "@mui/material";
+import { Grid, List, ListItem, Typography } from "@mui/material";
 import { Box, flexbox, styled } from "@mui/system";
 import usePost from "../../../hooks/usePost";
 import useDelete from "../../../hooks/useDelete";
 import IconButton from "../../atoms/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { QuizInfoState } from "../../templates/Home";
+import DeleteIcon from "@mui/icons-material/Delete";
+import PublishIcon from "@mui/icons-material/Publish";
 
 interface QuizListProps {
   quizzes: QuizInfoState["quiz"];
@@ -32,11 +33,24 @@ const StyledListItem = styled(ListItem)({
 });
 
 const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch, onClick }) => {
-  const { axiosDelete, response, isLoading, error } = useDelete();
+  const {
+    axiosDelete,
+    response: deleteResponse,
+    isLoading: deleteIsLoading,
+    error: deleteError,
+  } = useDelete();
+  const { axiosPost, response, isLoading, error } = usePost();
 
   const handleOnDelete = (id: string) => {
-    const url = process.env.REACT_APP_API_BASE + "quiz/delete/" + id;
+    const url = process.env.REACT_APP_API_BASE + "quiz/" + id;
     axiosDelete(url).then(() => {
+      refetch();
+    });
+  };
+
+  const handleOnPublish = (id: string) => {
+    const url = process.env.REACT_APP_API_BASE + "quiz/" + id + "/publish";
+    axiosPost(url, {}).then(() => {
       refetch();
     });
   };
@@ -48,10 +62,6 @@ const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch, onClick }) => {
           return (
             <StyledListItem key={quiz.id} onClick={() => onClick(quiz)}>
               {quiz.name}
-              <IconButton
-                onClick={() => handleOnDelete(quiz.id)}
-                Icon={DeleteIcon}
-              ></IconButton>
             </StyledListItem>
           );
         })

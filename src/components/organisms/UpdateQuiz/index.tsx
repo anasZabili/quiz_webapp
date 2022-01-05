@@ -41,16 +41,24 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
   quizzes,
   refetch,
 }) => {
-  const [selectedQuiz, setSelectedQuiz] = useState<QuizInfoState["quiz"][0]>();
+  const [selectedQuiz, setSelectedQuiz] = useState<
+    QuizInfoState["quiz"][0] | null
+  >();
   const [open, setOpen] = useState(false);
 
-  const { axiosPost, response, isLoading, error } = usePost();
-  console.log("🚀 ~ file: index.tsx ~ line 48 ~ response", response);
+  const { axiosPost, response, isLoading, error, clearField } = usePost();
+  console.log("🚀 ~ file: index.tsx ~ line 52 ~ response", response);
 
   const handleOnClick = (quiz: QuizInfoState["quiz"][0]) => {
     console.log("QUIZ selct : ", quiz);
     setSelectedQuiz(quiz);
     setOpen(true);
+  };
+
+  const refetchAfterAction = () => {
+    console.log("--- JE suis dans le refetch --");
+    refetch();
+    clearField();
   };
 
   const handleValidatePassword = (value: string) => {
@@ -78,7 +86,7 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
           />
         </Grid>
         <Grid item xs={12} md={8}>
-          <UpdateQuizPanel quiz={response} />
+          <UpdateQuizPanel quiz={response} refetch={refetchAfterAction} />
         </Grid>
       </Grid>
       <DialogPassword

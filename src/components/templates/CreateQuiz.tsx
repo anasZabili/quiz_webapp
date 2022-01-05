@@ -19,7 +19,7 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: CreatedQuizState) => {
-    const url = process.env.REACT_APP_API_BASE + "quiz/create";
+    const url = process.env.REACT_APP_API_BASE + "quiz";
     axiosPost(url, values).then((res) => {
       navigate("/");
     });

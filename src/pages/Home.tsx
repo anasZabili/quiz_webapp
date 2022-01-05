@@ -4,7 +4,7 @@ import { default as HomeTemplate } from "../components/templates/Home";
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const url = process.env.REACT_APP_API_BASE + "quizzes";
+  const url = process.env.REACT_APP_API_BASE + "quizzes/publish";
   const { error, isLoading, data } = useFetchData(url);
   return <HomeTemplate quizzes={data} isLoading={isLoading} />;
 };
