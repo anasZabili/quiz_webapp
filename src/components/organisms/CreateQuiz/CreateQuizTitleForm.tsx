@@ -2,13 +2,11 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import CenterForm from "../../atoms/CenterForm";
 import InputAndLabel from "../../molecules/InputAndLabel";
+import { UpdateQuizState } from "../UpdateQuiz";
 
 interface CreateQuizTitleFormProps {
   onSubmit: (values: any) => void;
-  defaultValues?: {
-    name: string;
-    password: string;
-  };
+  defaultValues?: UpdateQuizState;
 }
 
 const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
@@ -16,7 +14,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
   defaultValues,
 }) => {
   const [title, setTitle] = useState(defaultValues?.name || "");
-  const [password, setPassword] = useState(defaultValues?.password || "");
+  const [password, setPassword] = useState("");
 
   return (
     <CenterForm>
@@ -26,12 +24,17 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
         label="Titre du Quiz"
         onChange={(e) => setTitle(e.target.value)}
       />
-      <InputAndLabel
-        inputType="password"
-        placeholder="Mot de passe"
-        label="Mot de passe du Quiz"
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      {defaultValues ? (
+        <></>
+      ) : (
+        <InputAndLabel
+          inputType="password"
+          placeholder="Mot de passe"
+          label="Mot de passe du Quiz"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      )}
+
       <Button
         onClick={() => {
           const formatedValues = {

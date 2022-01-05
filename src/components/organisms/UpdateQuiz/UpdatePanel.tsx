@@ -23,7 +23,7 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz }) => {
     <StyledCard>
       <CardContent>
         {quiz ? (
-          <CreateQuizStepper handleCreate={onSubmit} />
+          <CreateQuizStepper handleCreate={onSubmit} defaultValues={quiz} />
         ) : (
           <Typography color="primary">Aucun quiz </Typography>
         )}

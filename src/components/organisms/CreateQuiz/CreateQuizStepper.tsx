@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import usePost from "../../../hooks/usePost";
+import { UpdateQuizState } from "../UpdateQuiz";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
 
 interface CreateQuizStepperProps {
   handleCreate: (values: any) => void;
+  defaultValues?: UpdateQuizState;
 }
 
 export interface CreatedQuizState {
@@ -23,6 +25,7 @@ export interface CreatedQuizState {
 
 const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   handleCreate,
+  defaultValues,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -115,7 +118,12 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   const ComputedStepComponent = (): any => {
     switch (true) {
       case currentStep === 0:
-        return <CreateQuizTitleForm onSubmit={onSubmit} />;
+        return (
+          <CreateQuizTitleForm
+            onSubmit={onSubmit}
+            defaultValues={defaultValues}
+          />
+        );
       case currentStep < 5:
         return <CreateQuizQuestionForm onSubmit={onSubmit} />;
       case currentStep === 5:
