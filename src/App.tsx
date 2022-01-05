@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CreateQuiz from "./pages/CreateQuiz";
 import PlayQuiz from "./pages/PlayQuiz";
+import UpdateQuiz from "./pages/UpdateQuiz";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -9,6 +10,9 @@ const theme = createTheme({
     primary: {
       // Purple and green play nicely together.
       main: "#eef3f8",
+    },
+    secondary: {
+      main: "#E50914",
     },
     info: {
       main: "#75eb6a",
@@ -29,6 +33,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/create-quiz" element={<CreateQuiz />} />
             <Route path="/play-quiz/:quizId" element={<PlayQuiz />} />
+            <Route path="/update-quiz" element={<UpdateQuiz />} />
           </Routes>
         </ThemeProvider>
       </Router>

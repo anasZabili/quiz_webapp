@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import usePost from "../../../hooks/usePost";
+import { UpdateQuizState } from "../UpdateQuiz";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
 
-interface CreateQuizStepperProps {}
+interface CreateQuizStepperProps {
+  handleCreate: (values: any) => void;
+  defaultValues?: UpdateQuizState;
+}
 
 export interface CreatedQuizState {
   name: string;
@@ -19,7 +23,10 @@ export interface CreatedQuizState {
   }[];
 }
 
-const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
+const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
+  handleCreate,
+  defaultValues,
+}) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const [createdQuiz, setCreatedQuiz] = useState<CreatedQuizState>({
@@ -44,8 +51,6 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
     return JSON.parse(JSON.stringify(array));
   };
 
-  const navigate = useNavigate();
-
   const addQuestion = (
     question: CreatedQuizState["questions"][0],
     index: number
@@ -61,14 +66,9 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
 
   const [isFinished, setIsFinished] = useState(false);
 
-  const { axiosPost, response, isLoading, error } = usePost();
-
   useEffect(() => {
     if (isFinished) {
-      const url = process.env.REACT_APP_API_BASE + "quiz/create";
-      axiosPost(url, createdQuiz).then((res) => {
-        navigate("/");
-      });
+      handleCreate(createdQuiz);
     }
     //cleanup
     return () => {
@@ -118,7 +118,12 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = () => {
   const ComputedStepComponent = (): any => {
     switch (true) {
       case currentStep === 0:
-        return <CreateQuizTitleForm onSubmit={onSubmit} />;
+        return (
+          <CreateQuizTitleForm
+            onSubmit={onSubmit}
+            defaultValues={defaultValues}
+          />
+        );
       case currentStep < 5:
         return <CreateQuizQuestionForm onSubmit={onSubmit} />;
       case currentStep === 5:

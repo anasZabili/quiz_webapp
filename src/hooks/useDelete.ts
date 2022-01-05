@@ -1,16 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
 
-const usePost = () => {
+const useDelete = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<any>(null);
-  const [response, setResponse] = useState<any>(null);
+  const [response, setResponse] = useState(null);
 
-  const axiosPost = (url: string, body: any, option?: any): Promise<any> => {
+  const axiosDelete = (url: string, option?: any): Promise<any> => {
     return axios
-      .post(url, body, option)
+      .delete(url, option)
       .then((res) => {
-        console.log("ajout réussi", res);
+        console.log("Suppression réussi", res);
         setIsLoading(false);
         setResponse(res.data);
         setError(null);
@@ -19,11 +19,11 @@ const usePost = () => {
       .catch((err) => {
         setError(err);
         // toast
-        console.log("error usePost ", error);
+        console.log("error useDelete ", error);
         return err;
       });
   };
-  return { axiosPost, response, isLoading, error };
+  return { axiosDelete, response, isLoading, error };
 };
 
-export default usePost;
+export default useDelete;
