@@ -1,4 +1,4 @@
-import { InputBase, Button, Typography } from "@mui/material";
+import { InputBase, Button, Typography, Grid } from "@mui/material";
 import { useCallback, useState } from "react";
 import CenterBox from "../atoms/CenterBox";
 import TextInput from "../atoms/TextInput";
@@ -50,42 +50,53 @@ const TextAnswer: React.FC<TextAnswerProps> = ({
   // };
 
   return (
-    <CenterBox>
-      <TextInput
-        onChange={handleChange}
-        disabled={isVerify}
-        placeholder="Réponse"
-        value={answer}
-      />
-      {response &&
-        (isCorrectAnswer() ? (
-          <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
+    <Grid
+      container
+      justifyContent="center"
+      direction="column"
+      alignItems="center"
+      rowSpacing={2}
+    >
+      <Grid item xs={12}>
+        <TextInput
+          onChange={handleChange}
+          disabled={isVerify}
+          placeholder="Réponse"
+          value={answer}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        {response &&
+          (isCorrectAnswer() ? (
+            <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
+          ) : (
+            <TextReponse isCorrect={false}>
+              Mauvaise réponse la bonne réponse était {response[0]?.text}
+            </TextReponse>
+          ))}
+      </Grid>
+      <Grid item xs={12}>
+        {!isVerify ? (
+          <Button variant="contained" onClick={handleVerify} disabled={!answer}>
+            Vérifier
+          </Button>
+        ) : isTheLastQuestion ? (
+          <Button
+            variant="contained"
+            onClick={() => finishQuiz(isCorrectAnswer())}
+          >
+            Terminer
+          </Button>
         ) : (
-          <TextReponse isCorrect={false}>
-            Mauvaise réponse la bonne réponse était {response[0]?.text}
-          </TextReponse>
-        ))}
-
-      {!isVerify ? (
-        <Button variant="contained" onClick={handleVerify} disabled={!answer}>
-          Vérifier
-        </Button>
-      ) : isTheLastQuestion ? (
-        <Button
-          variant="contained"
-          onClick={() => finishQuiz(isCorrectAnswer())}
-        >
-          Terminer
-        </Button>
-      ) : (
-        <Button
-          variant="contained"
-          onClick={() => nextQuestion(isCorrectAnswer())}
-        >
-          Suivant
-        </Button>
-      )}
-    </CenterBox>
+          <Button
+            variant="contained"
+            onClick={() => nextQuestion(isCorrectAnswer())}
+          >
+            Suivant
+          </Button>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 
