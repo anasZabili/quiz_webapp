@@ -163,7 +163,11 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <CreateQuizStepper handleCreate={onSubmit} defaultValues={quiz} />
+              <CreateQuizStepper
+                isUpdate={true}
+                handleCreate={onSubmit}
+                defaultValues={quiz}
+              />
               <Divider variant="middle" />
             </Grid>
           </Grid>

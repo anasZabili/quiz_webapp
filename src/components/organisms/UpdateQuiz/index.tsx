@@ -1,19 +1,8 @@
-import {
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Typography } from "@mui/material";
 import QuizList from "./QuizList";
-import useFetchData from "../../../hooks/useFetchData";
 import { useEffect, useState } from "react";
 import { QuizInfoState } from "../../templates/Home";
 import UpdateQuizPanel from "./UpdatePanel";
-import Box from "@mui/material/Box";
-import { styled } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import DialogPassword from "./DialogPassword";
 import usePost from "../../../hooks/usePost";

@@ -1,10 +1,7 @@
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import useFetchData from "../../../hooks/useFetchData";
-import CenterForm from "../../atoms/CenterForm";
 import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
-import { QuizInfoState } from "../../templates/Home";
 import Button from "../../atoms/Button";
 
 interface CreateQuizTitleFormProps {
@@ -53,7 +50,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
       )}
       <Grid item xs={12}>
         <Button
-          disabled={!title || !password}
+          disabled={!title || (!password && !defaultValues)}
           onClick={() => {
             const formatedValues = {
               name: title,

@@ -9,6 +9,7 @@ import { customErrorToast } from "../../../utils/customToast";
 interface CreateQuizStepperProps {
   handleCreate: (values: any) => void;
   defaultValues?: UpdateQuizState;
+  isUpdate?: boolean;
 }
 
 export interface CreatedQuizState {
@@ -27,6 +28,7 @@ export interface CreatedQuizState {
 const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   handleCreate,
   defaultValues,
+  isUpdate = false,
 }) => {
   const quizzesUrl = process.env.REACT_APP_API_BASE + "quizzes";
   const {
@@ -37,7 +39,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
 
   useEffect(() => {
     if (quizzesError) {
-      customErrorToast("Erreur", "Une erreur est survenue ");
+      customErrorToast("Erreur", "Une erreur est survenue");
     }
   }, [quizzesError]);
 
@@ -89,14 +91,21 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   const onSubmit = (values: any) => {
     switch (true) {
       case currentStep === 0:
-        if (
-          quizzesData.filter(
-            (value: { id: string; name: string }) => value.name === values.name
-          ).length > 0
-        ) {
-          customErrorToast("Erreur", "Un quiz portant le même nom existe déjà");
-          break;
+        if (!isUpdate) {
+          if (
+            quizzesData.filter(
+              (value: { id: string; name: string }) =>
+                value.name === values.name
+            ).length > 0
+          ) {
+            customErrorToast(
+              "Erreur",
+              "Un quiz portant le même nom existe déjà"
+            );
+            break;
+          }
         }
+
         setCreatedQuiz((prevState) => {
           return {
             ...prevState,
@@ -130,7 +139,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
         break;
 
       default:
-        return <p>Erreur</p>;
+        return <Typography color="primary">Erreur</Typography>;
     }
   };
 
@@ -189,7 +198,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
         );
 
       default:
-        return <p>Erreur</p>;
+        return <Typography color="primary">Erreur</Typography>;
     }
   };
 

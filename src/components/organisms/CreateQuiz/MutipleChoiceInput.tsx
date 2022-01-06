@@ -16,6 +16,7 @@ interface MultipleChoiceInputProps {
   handleChange: (question: CreatedQuizState["questions"][0]) => void;
   defaultValues?: UpdateQuizState["questions"][0];
   isSingleChoice?: boolean;
+  isUpdate?: boolean;
 }
 
 const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
@@ -23,6 +24,7 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
   defaultValues,
   questionType,
   isSingleChoice = false,
+  isUpdate = false,
 }) => {
   const fillDefaultValue = (
     array: {

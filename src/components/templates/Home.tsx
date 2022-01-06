@@ -13,7 +13,7 @@ export interface QuizInfoState {
 }
 
 const Container = styled(Box)({
-  width: "80%",
+  width: "90%",
   maxWidth: "1500px",
   margin: "2em auto",
 });

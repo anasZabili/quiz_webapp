@@ -1,6 +1,7 @@
 import { CircularProgress } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetchData from "../../../hooks/useFetchData";
+import { customErrorToast } from "../../../utils/customToast";
 import { UpdateQuizState } from "../UpdateQuiz";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import RadioTypeOfQuestionNew from "./RadioTypeOfQuestionNew";
@@ -17,6 +18,15 @@ const CreateQuizQuestionForm: React.FC<CreateQuizQuestionFormProps> = ({
 }) => {
   const url = process.env.REACT_APP_API_BASE + "questions/types";
   const { error, isLoading, data } = useFetchData(url);
+
+  useEffect(() => {
+    if (error) {
+      customErrorToast(
+        "Erreur",
+        "Impossible de charger les types de questions"
+      );
+    }
+  }, [error]);
 
   const [question, setQuestion] = useState<CreatedQuizState["questions"][0]>({
     text: defaultValues?.text || "",

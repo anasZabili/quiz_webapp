@@ -28,7 +28,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [isFinished, setIsFinished] = useState(false);
   const [username, setUsername] = useState("");
 
-  const [rate, setRate] = useState<number | null>(2);
+  const [rate, setRate] = useState<number | null>(5);
   const [disableRating, setDisableRating] = useState(false);
 
   const { axiosPost, response, isLoading, error } = usePost();
@@ -72,6 +72,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     }
     if (response) {
       customSuccessToast("Succès", "Votre score a bien été enregistré");
+      navigate("/");
     }
   }, [error, response]);
 
@@ -89,7 +90,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     setUsername(e.target.value);
   };
 
-  const handleRating = (values: Number | null) => {
+  const handleRating = (values: number | null) => {
     const url = process.env.REACT_APP_API_BASE + "quiz/" + quiz.id + "/rate";
     const formatedValues = {
       rate: values,
@@ -104,6 +105,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
       if (!error) {
         // handle Toast
         customSuccessToast("Succès", "Note enregistrée");
+        setRate(values);
         setDisableRating(true);
       }
     });
