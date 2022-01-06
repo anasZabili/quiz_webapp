@@ -1,4 +1,4 @@
-import { Box, Button, Card } from "@mui/material";
+import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { PlayableQuizState } from "../../pages/PlayQuiz";
 import MultipleChoiceAnswer from "./MultipleChoiceAnswer";
@@ -19,7 +19,7 @@ const StyledCard = styled(Card)({
   alignItems: "center",
 });
 
-const Title = styled("h1")({
+const Title = styled(Typography)({
   color: "#918a8a",
   textAlign: "center",
   fontSize: "2rem",
@@ -103,10 +103,20 @@ const Question: React.FC<QuestionProps> = ({
   };
   return (
     <StyledCard>
-      <Title>{question.text}</Title>
-      <AnswerContainer>
-        <ComputedAnswerComponent />
-      </AnswerContainer>
+      <Grid
+        container
+        justifyContent="center"
+        direction="column"
+        alignItems="center"
+        rowSpacing={2}
+      >
+        <Grid item xs={12}>
+          <Title variant="h3">{question.text}</Title>
+        </Grid>
+        <Grid item xs={12}>
+          <ComputedAnswerComponent />
+        </Grid>
+      </Grid>
     </StyledCard>
   );
 };

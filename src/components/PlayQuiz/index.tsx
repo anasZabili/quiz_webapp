@@ -39,7 +39,6 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [username, setUsername] = useState("");
-  const [toastOpen, setToastOpen] = useState(false);
   console.log("🚀 ~ file: index.tsx ~ line 40 ~ username", !!username);
 
   const { axiosPost, response, isLoading, error } = usePost();
@@ -56,7 +55,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     if (currentQuestionNumber === quiz.questions.length - 1) {
       setIsTheLastQuestion(true);
     }
-  }, [currentQuestionNumber]);
+  }, [currentQuestionNumber, quiz.questions.length]);
 
   const nextQuestion = (isCorrect: boolean) => {
     if (isCorrect) {
@@ -100,9 +99,9 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
       <Grid
         container
         justifyContent="center"
-        direction="column"
+        direction="row"
         alignItems="center"
-        rowSpacing={5}
+        rowSpacing={2}
       >
         <Grid item xs={12}>
           <TypoGraphyBebasNeue
@@ -130,7 +129,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
               justifyContent="center"
               direction="column"
               alignItems="center"
-              rowSpacing={5}
+              rowSpacing={2}
             >
               <Grid item xs={12}>
                 <TypoGraphyBebasNeue

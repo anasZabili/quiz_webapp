@@ -5,6 +5,7 @@ import CenterBox from "../atoms/CenterBox";
 import TextReponse from "../atoms/TextResponse";
 import CheckBoxGroup from "./CheckBoxGroup";
 import Joi from "joi";
+import { Grid } from "@mui/material";
 
 import { IAnswers } from "./Question";
 
@@ -100,45 +101,57 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   };
 
   return (
-    <CenterBox>
-      <CheckBoxGroup
-        answers={answers}
-        handleChange={handleChange}
-        isVerify={isVerify}
-      />
-      {response &&
-        (isCorrectAnswer() ? (
-          <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
+    <Grid
+      container
+      justifyContent="center"
+      direction="column"
+      alignItems="center"
+      rowSpacing={2}
+    >
+      <Grid item xs={12}>
+        <CheckBoxGroup
+          answers={answers}
+          handleChange={handleChange}
+          isVerify={isVerify}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        {response &&
+          (isCorrectAnswer() ? (
+            <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
+          ) : (
+            <TextReponse isCorrect={false}>
+              Mauvaise réponse la/les bonne réponse est/sont
+              {response.map((value: { text: string }) => value.text + " ")}
+            </TextReponse>
+          ))}
+      </Grid>
+      <Grid item xs={12}>
+        {!isVerify ? (
+          <Button
+            variant="contained"
+            onClick={handleVerify}
+            disabled={!hasAtLeastOneAnswer()}
+          >
+            Vérifier
+          </Button>
+        ) : isTheLastQuestion ? (
+          <Button
+            variant="contained"
+            onClick={() => finishQuiz(isCorrectAnswer())}
+          >
+            Terminer
+          </Button>
         ) : (
-          <TextReponse isCorrect={false}>
-            Mauvaise réponse la/les bonne réponse est/sont
-            {response.map((value: { text: string }) => value.text + " ")}
-          </TextReponse>
-        ))}
-      {!isVerify ? (
-        <Button
-          variant="contained"
-          onClick={handleVerify}
-          disabled={!hasAtLeastOneAnswer()}
-        >
-          Vérifier
-        </Button>
-      ) : isTheLastQuestion ? (
-        <Button
-          variant="contained"
-          onClick={() => finishQuiz(isCorrectAnswer())}
-        >
-          Terminer
-        </Button>
-      ) : (
-        <Button
-          variant="contained"
-          onClick={() => nextQuestion(isCorrectAnswer())}
-        >
-          Suivant
-        </Button>
-      )}
-    </CenterBox>
+          <Button
+            variant="contained"
+            onClick={() => nextQuestion(isCorrectAnswer())}
+          >
+            Suivant
+          </Button>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 export default MultipleChoiceAnswer;

@@ -3,6 +3,7 @@ import {
   FormControl,
   FormControlLabel,
   FormGroup,
+  Grid,
   Typography,
 } from "@mui/material";
 import { Box, styled } from "@mui/system";
@@ -48,31 +49,39 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
   isVerify,
 }) => {
   return (
-    <StyledBox>
+    <Grid item xs={12}>
       <FormControl component="div" disabled={isVerify}>
         <StyledFormGroup>
-          {answers?.map((value, index) => {
-            console.log(
-              "🚀 ~ file: CheckBoxGroup.tsx ~ line 68 ~ {answers?.map ~ value",
-              value
-            );
+          <Grid
+            item
+            xs={12}
+            container
+            justifyContent="center"
+            direction="row"
+            alignItems="center"
+            rowSpacing={2}
+          >
+            {answers?.map((value, index) => {
+              console.log(
+                "🚀 ~ file: CheckBoxGroup.tsx ~ line 68 ~ {answers?.map ~ value",
+                value
+              );
 
-            return (
-              <>
-                <CheckBoxContainer key={index}>
+              return (
+                <Grid item xs={6}>
                   <CenterFormControlLabel
                     control={
                       <Checkbox value={value.id} onChange={handleChange} />
                     }
                     label={value.text}
                   />
-                </CheckBoxContainer>
-              </>
-            );
-          })}
+                </Grid>
+              );
+            })}
+          </Grid>
         </StyledFormGroup>
       </FormControl>
-    </StyledBox>
+    </Grid>
   );
 };
 
