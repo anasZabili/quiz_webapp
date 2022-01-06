@@ -94,11 +94,11 @@ const QuizScore: React.FC<QuizScoreProps> = ({ open, setOpen, quiId }) => {
                         primary={
                           element.score > 1
                             ? capitalizeFirstLetter(element.userName) +
-                              " à eu " +
+                              " a eu " +
                               element.score +
                               " Netcoins"
                             : capitalizeFirstLetter(element.userName) +
-                              " à eu " +
+                              " a eu " +
                               element.score +
                               " Netcoin"
                         }
