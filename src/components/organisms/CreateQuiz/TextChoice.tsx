@@ -71,7 +71,7 @@ const TextChoice: React.FC<TextChoiceProps> = ({
         }
         disabled={!answer}
       >
-        Click pr submit le change
+        Suivant
       </Button>
     </CenterBox>
     // </StyledBox>
