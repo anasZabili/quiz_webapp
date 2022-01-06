@@ -100,6 +100,10 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     return checked.some((item) => item.isChecked);
   };
 
+  const hasMoreThanOneElement = (array: any[]): boolean => {
+    return array.length > 1;
+  };
+
   return (
     <Grid
       container
@@ -121,7 +125,10 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
             <TextReponse isCorrect={true}>Bonne réponse</TextReponse>
           ) : (
             <TextReponse isCorrect={false}>
-              Mauvaise réponse la/les bonne réponse est/sont
+              Mauvaise réponse {hasMoreThanOneElement(response) ? "les" : "la"}{" "}
+              bonne{hasMoreThanOneElement(response) && "s"} réponse
+              {hasMoreThanOneElement(response) && "s"}{" "}
+              {hasMoreThanOneElement(response) ? "sont" : "est"}
               {response.map((value: { text: string }) => value.text + " ")}
             </TextReponse>
           ))}
