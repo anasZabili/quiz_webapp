@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useEffect, useState, useCallback } from "react";
 import useGet from "../../hooks/useGet";
 import CenterBox from "../atoms/CenterBox";
@@ -8,6 +8,7 @@ import Joi from "joi";
 import { Grid } from "@mui/material";
 
 import { IAnswers } from "./Question";
+import Button from "../atoms/Button";
 
 interface MultipleChoiceAnswerProps {
   answers: IAnswers["answers"];

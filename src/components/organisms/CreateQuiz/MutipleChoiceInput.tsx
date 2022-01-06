@@ -1,10 +1,11 @@
-import { FormGroup, Button, Grid } from "@mui/material";
+import { FormGroup, Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import { useEffect, useState } from "react";
 import CheckBoxAndLabel from "../../molecules/CheckboxAndLabel";
 import { CreatedQuizState } from "./CreateQuizStepper";
 import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
+import Button from "../../atoms/Button";
 
 const StyledFormGroup = styled(FormGroup)({
   // display: "grid",

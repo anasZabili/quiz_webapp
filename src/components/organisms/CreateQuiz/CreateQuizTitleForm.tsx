@@ -1,10 +1,11 @@
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useState } from "react";
 import useFetchData from "../../../hooks/useFetchData";
 import CenterForm from "../../atoms/CenterForm";
 import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
 import { QuizInfoState } from "../../templates/Home";
+import Button from "../../atoms/Button";
 
 interface CreateQuizTitleFormProps {
   onSubmit: (values: any) => void;

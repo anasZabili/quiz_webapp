@@ -1,5 +1,4 @@
 import {
-  Button,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -15,6 +14,7 @@ import { styled } from "@mui/system";
 import useFetchData from "../../../hooks/useFetchData";
 import usePost from "../../../hooks/usePost";
 import StarsIcon from "@mui/icons-material/Stars";
+import Button from "../../atoms/Button";
 
 interface QuizScoreProps {
   open: boolean;

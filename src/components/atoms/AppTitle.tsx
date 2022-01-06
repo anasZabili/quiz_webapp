@@ -12,7 +12,6 @@ const Title = styled("h1")({
   letterSpacing: "0.2rem",
   // textShadow: "0.02em 0.02em 2px gray",
   fontFamily: "Bebas Neue",
-  width: "fit-content",
 });
 
 const AppTitle: React.FC<AppTitleProps> = ({ children }) => {

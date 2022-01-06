@@ -1,9 +1,9 @@
 import { useState } from "react";
 import CenterBox from "../../atoms/CenterBox";
 import { CreatedQuizState } from "./CreateQuizStepper";
-import { Button } from "@mui/material";
 import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
+import Button from "../../atoms/Button";
 
 interface TextChoiceProps {
   questionType: number;

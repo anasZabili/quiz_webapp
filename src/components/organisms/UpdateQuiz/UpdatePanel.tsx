@@ -1,5 +1,4 @@
 import {
-  Button,
   Card as MuiCard,
   CardContent,
   Divider,
@@ -17,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PublishIcon from "@mui/icons-material/Publish";
 import useDelete from "../../../hooks/useDelete";
 import usePost from "../../../hooks/usePost";
+import Button from "../../atoms/Button";
 
 interface UpdateQuizPanelProps {
   quiz: UpdateQuizState;

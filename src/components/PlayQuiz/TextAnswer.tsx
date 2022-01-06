@@ -1,9 +1,10 @@
-import { InputBase, Button, Typography, Grid } from "@mui/material";
+import { InputBase, Typography, Grid } from "@mui/material";
 import { useCallback, useState } from "react";
 import CenterBox from "../atoms/CenterBox";
 import TextInput from "../atoms/TextInput";
 import TextReponse from "../atoms/TextResponse";
 import useGet from "../../hooks/useGet";
+import Button from "../atoms/Button";
 
 interface TextAnswerProps {
   isTheLastQuestion: boolean;

@@ -1,7 +1,6 @@
 import { Password, Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import {
-  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,6 +15,7 @@ import {
 import { styled } from "@mui/system";
 import { useState } from "react";
 import { State } from "joi";
+import Button from "../../atoms/Button";
 
 interface DialogPasswordProps {
   open: boolean;

@@ -1,5 +1,4 @@
 import {
-  Button,
   FormControl,
   FormControlLabel,
   Radio,
@@ -11,6 +10,7 @@ import CenterBox from "../atoms/CenterBox";
 import { useState } from "react";
 import TextReponse from "../atoms/TextResponse";
 import useGet from "../../hooks/useGet";
+import Button from "../atoms/Button";
 
 interface TFAnswerProps {
   answers: IAnswers["answers"];
