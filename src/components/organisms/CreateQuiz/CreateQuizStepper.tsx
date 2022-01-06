@@ -182,7 +182,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              {currentStep == 5 ? (
+              {currentStep === 5 ? (
                 <CreateQuizQuestionForm
                   defaultValues={defaultValues?.questions[currentStep - 1]}
                   onSubmit={onSubmit}
