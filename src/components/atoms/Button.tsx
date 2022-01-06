@@ -2,6 +2,7 @@ import { Button as MuiButton } from "@mui/material";
 import { styled } from "@mui/system";
 
 const StyledButton = styled(MuiButton)({
+  backgroundColor: "#918a8a",
   fontWeight: "bold",
   ":disabled": {
     backgroundColor: "#201c1cb5",

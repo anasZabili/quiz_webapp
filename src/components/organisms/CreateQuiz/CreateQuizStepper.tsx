@@ -131,10 +131,25 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
     switch (true) {
       case currentStep === 0:
         return (
-          <CreateQuizTitleForm
-            onSubmit={onSubmit}
-            defaultValues={defaultValues}
-          />
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            rowGap={3}
+          >
+            <Grid item xs={12}>
+              <Typography variant="h5" color="primary">
+                Informations du Quiz
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <CreateQuizTitleForm
+                onSubmit={onSubmit}
+                defaultValues={defaultValues}
+              />
+            </Grid>
+          </Grid>
         );
       case currentStep < 6:
         return (

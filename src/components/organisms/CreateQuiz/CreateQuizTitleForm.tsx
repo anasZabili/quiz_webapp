@@ -53,6 +53,7 @@ const CreateQuizTitleForm: React.FC<CreateQuizTitleFormProps> = ({
       )}
       <Grid item xs={12}>
         <Button
+          disabled={!title || !password}
           onClick={() => {
             const formatedValues = {
               name: title,
