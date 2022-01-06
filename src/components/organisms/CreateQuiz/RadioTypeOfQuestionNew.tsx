@@ -16,6 +16,7 @@ const StyledRadioGroup = styled(RadioGroup)({
   flexDirection: "row",
   justifyContent: "center",
   margin: "0",
+  marginBottom: "20px",
 });
 
 interface RadioTypeOfQuestionNewProps {

@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  Grid,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -63,49 +64,53 @@ const DialogPassword: React.FC<DialogPasswordProps> = ({
   };
   return (
     <StyledDialog open={open} onClose={handleClose}>
-      <DialogTitle color="primary">Entrer le mot de passe du quiz</DialogTitle>
-      <DialogContent>
-        <FormControl
-          sx={{ m: 1, width: "25ch" }}
-          variant="outlined"
-          color="primary"
-          focused
-          fullWidth
-        >
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={passwordValue.showPassword ? "text" : "password"}
-            value={passwordValue.password}
-            sx={{
-              color: "#eef3f8",
-            }}
-            onChange={(e) =>
-              setPaswword({ ...passwordValue, password: e.target.value })
-            }
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                  color="primary"
-                >
-                  {passwordValue.showPassword ? (
-                    <VisibilityOff />
-                  ) : (
-                    <Visibility />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-      </DialogContent>
+      <Grid container rowGap={3} direction="column">
+        <DialogTitle color="primary">
+          Entrer le mot de passe du quiz
+        </DialogTitle>
+        <DialogContent>
+          <FormControl
+            sx={{ mt: 1 }}
+            variant="outlined"
+            color="primary"
+            focused
+            fullWidth
+          >
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={passwordValue.showPassword ? "text" : "password"}
+              value={passwordValue.password}
+              sx={{
+                color: "#eef3f8",
+              }}
+              onChange={(e) =>
+                setPaswword({ ...passwordValue, password: e.target.value })
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    color="primary"
+                  >
+                    {passwordValue.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+        </DialogContent>
+      </Grid>
       <DialogActions>
         <Button onClick={handleClose} color="primary">
           Annuler

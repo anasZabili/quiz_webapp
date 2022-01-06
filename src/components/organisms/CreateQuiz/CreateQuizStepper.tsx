@@ -1,4 +1,4 @@
-import { CircularProgress, Box } from "@mui/material";
+import { CircularProgress, Box, Typography, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchData from "../../../hooks/useFetchData";
@@ -136,19 +136,34 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
             defaultValues={defaultValues}
           />
         );
-      case currentStep < 5:
+      case currentStep < 6:
         return (
-          <CreateQuizQuestionForm
-            defaultValues={defaultValues?.questions[currentStep - 1]}
-            onSubmit={onSubmit}
-          />
-        );
-      case currentStep === 5:
-        return (
-          <CreateQuizQuestionForm
-            defaultValues={defaultValues?.questions[currentStep - 1]}
-            onSubmit={onSubmit}
-          />
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            rowGap={3}
+          >
+            <Grid item xs={12}>
+              <Typography variant="h5" color="primary">
+                {"Question " + currentStep + " / 5"}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {currentStep == 5 ? (
+                <CreateQuizQuestionForm
+                  defaultValues={defaultValues?.questions[currentStep - 1]}
+                  onSubmit={onSubmit}
+                />
+              ) : (
+                <CreateQuizQuestionForm
+                  defaultValues={defaultValues?.questions[currentStep - 1]}
+                  onSubmit={onSubmit}
+                />
+              )}
+            </Grid>
+          </Grid>
         );
 
       default:

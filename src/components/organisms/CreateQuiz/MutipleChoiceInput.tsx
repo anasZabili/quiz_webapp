@@ -7,11 +7,12 @@ import TextInput from "../../atoms/TextInput";
 import { UpdateQuizState } from "../UpdateQuiz";
 
 const StyledFormGroup = styled(FormGroup)({
-  display: "grid",
-  gridTemplateColumns: "auto auto",
-  gridGap: "1rem",
-  alignItems: "center",
-  justifyItems: "center",
+  // display: "grid",
+  // gridTemplateColumns: "auto auto",
+  // gridGap: "1rem",
+  // alignItems: "center",
+  // justifyItems: "center",
+  maxWidth: "1280px",
 });
 
 interface MultipleChoiceInputProps {
@@ -114,50 +115,66 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
       alignItems="center"
       rowGap={3}
     >
-      <Grid item xs={12}>
-        <TextInput
-          type="text"
-          placeholder={`Question`}
-          value={questionText}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setQuestionText(event.target.value)
-          }
-          // label="Mot de passe du Quiz"
-        />
-      </Grid>
-
+      {/* <Grid container direction="row" alignItems="start"> */}
+      {/* <Grid item xs={12}> */}
+      <TextInput
+        type="text"
+        placeholder={`Question`}
+        value={questionText}
+        // fullWidth
+        // sx={{ width: "90%" }}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setQuestionText(event.target.value)
+        }
+        // label="Mot de passe du Quiz"
+      />
+      {/* </Grid> */}
+      {/* </Grid> */}
       <StyledFormGroup>
-        {Array(4)
-          .fill(0)
-          ?.map((_, index) => {
-            return (
-              <Grid
-                item
-                xs={12}
-                container
-                direction="column"
-                justifyContent="center"
-                rowGap={3}
-              >
-                <Grid item xs={12}>
-                  <TextInput
-                    inputType="text"
-                    placeholder={`Réponse ${index + 1}`}
-                    value={answers[index].text}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      handleInputChange(e, index)
-                    }
-                    // label="Mot de passe du Quiz"
-                  />
-                  <CheckBoxAndLabel
-                    label="Correct"
-                    onChange={(e) => handleCheckboxChange(e, index)}
-                    checked={answers[index].isCorrect}
-                  />
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          rowGap={3}
+        >
+          {Array(4)
+            .fill(0)
+            ?.map((_, index) => {
+              return (
+                <Grid
+                  item
+                  spacing={2}
+                  xs={12}
+                  md={6}
+                  container
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  wrap="nowrap"
+                >
+                  <Grid item>
+                    <TextInput
+                      inputType="text"
+                      placeholder={`Réponse ${index + 1}`}
+                      value={answers[index].text}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        handleInputChange(e, index)
+                      }
+                      // label="Mot de passe du Quiz"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <CheckBoxAndLabel
+                      label="Correct"
+                      onChange={(e) => handleCheckboxChange(e, index)}
+                      checked={answers[index].isCorrect}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            );
-          })}
+              );
+            })}
+        </Grid>
       </StyledFormGroup>
       <Button
         onClick={() =>

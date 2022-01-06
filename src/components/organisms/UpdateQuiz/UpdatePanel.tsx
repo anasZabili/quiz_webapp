@@ -79,7 +79,7 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
         {quiz ? (
           <Grid
             container
-            spacing={2}
+            spacing={12}
             direction="column"
             justifyContent="space-between"
             alignItems="center"
@@ -89,25 +89,28 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
             <Grid
               container
               direction="row"
-              justifyContent="space-around"
+              justifyContent="flex-end"
               alignItems="center"
               item
               xs={12}
+              md={4}
             >
-              <Grid item xs={6}>
+              <Grid container xs={6} md={6} justifyContent="flex-end">
                 <Button
                   variant="outlined"
                   endIcon={<PublishIcon />}
                   onClick={() => handleOnPublish(quiz.id)}
+                  sx={{ mr: 3, borderRadius: "1rem" }}
                 >
                   Publier
                 </Button>
               </Grid>
-              <Grid item xs={6}>
+              <Grid container xs={6} md={6}>
                 <Button
                   variant="outlined"
                   endIcon={<DeleteIcon />}
                   onClick={() => handleOnDelete(quiz.id)}
+                  sx={{ borderRadius: "1rem" }}
                 >
                   Supprimer
                 </Button>
