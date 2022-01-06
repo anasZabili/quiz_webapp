@@ -9,6 +9,7 @@ import HeaderLink from "../atoms/HeaderLink";
 
 const TitleContainer = styled(Box)({
   cursor: "pointer",
+  width: "min-content",
 });
 
 const StyledAppBar = styled(AppBar)({
@@ -28,7 +29,6 @@ const Appbar: React.FC<AppbarProps> = () => {
         <TitleContainer onClick={handleClick} flexGrow={1}>
           <AppTitle>NETQUIZ</AppTitle>
         </TitleContainer>
-        <HeaderLink to="/">Quiz</HeaderLink>
         <HeaderLink to="/create-quiz">Créer Quiz</HeaderLink>
         <HeaderLink to="/update-quiz">Modifier Quiz</HeaderLink>
       </Toolbar>

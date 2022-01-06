@@ -12,22 +12,20 @@ const CheckBoxAndLabel: React.FC<CheckBoxAndLabelProps> = ({
   onChange,
   ...props
 }) => {
-  const [state, setstate] = useState(false);
   return (
     <FormControlLabel
       control={<Checkbox color="primary" onChange={onChange} {...props} />}
-      // color="primary"
       sx={{
         color: "#eef3f8",
-        // boxShadow: "0px 0px 0px 1px #eef3f8",
 
         "&.Mui-checked": {
           color: "#eef3f8",
           border: "2px solid #bcbcbc",
         },
-        ".MuiCheckbox-root": {
+        "&.MuiFormControlLabel-root": {
+          margin: "0 auto",
           color: "#eef3f8b0",
-          // border: "2px solid #bcbcbc",
+          width: "100%",
         },
       }}
       label={label}

@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useEffect, useState, useCallback } from "react";
 import useGet from "../../hooks/useGet";
 import CenterBox from "../atoms/CenterBox";
@@ -18,7 +18,7 @@ interface MultipleChoiceAnswerProps {
   nextQuestion: (isCorrect: boolean) => void;
 }
 
-interface CheckboxsState {
+export interface CheckboxsState {
   checkboxsState: {
     id: string;
     isChecked: boolean;
@@ -34,6 +34,10 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   questionId,
 }) => {
   const [checked, setChecked] = useState<CheckboxsState["checkboxsState"]>();
+  console.log(
+    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 37 ~ checked",
+    checked
+  );
 
   const [isVerify, setIsVerify] = useState(false);
 
@@ -53,13 +57,18 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     const { checked } = event.target;
     const id = event.target.value;
     setChecked((prevState) => {
-      const newState = prevState?.map((item) => {
-        if (item.id === id) {
-          return { ...item, isChecked: checked };
+      if (isSingleChoice) {
+        console.log("je rentre dans le is single choice");
+        prevState?.forEach((answer: any) => {
+          answer.isChecked = false;
+        });
+      }
+      return prevState?.map((checkbox) => {
+        if (checkbox.id === id) {
+          return { ...checkbox, isChecked: checked };
         }
-        return item;
+        return checkbox;
       });
-      return newState;
     });
   };
 
@@ -95,9 +104,13 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     );
   }, [checked, response]);
 
-  const hasAtLeastOneAnswer = (): boolean => {
+  const hasTheGoodNumberOfAnswer = (): boolean => {
     if (!checked) return false;
-    return checked.some((item) => item.isChecked);
+    if (isSingleChoice) {
+      return checked.filter((item) => item.isChecked).length === 1;
+    } else {
+      return checked.filter((item) => item.isChecked).length === 2;
+    }
   };
 
   const hasMoreThanOneElement = (array: any[]): boolean => {
@@ -117,6 +130,7 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
           answers={answers}
           handleChange={handleChange}
           isVerify={isVerify}
+          checked={checked}
         />
       </Grid>
       <Grid item xs={12}>
@@ -128,7 +142,7 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
               Mauvaise réponse {hasMoreThanOneElement(response) ? "les" : "la"}{" "}
               bonne{hasMoreThanOneElement(response) && "s"} réponse
               {hasMoreThanOneElement(response) && "s"}{" "}
-              {hasMoreThanOneElement(response) ? "sont" : "est"}
+              {hasMoreThanOneElement(response) ? "sont " : "est "}
               {response.map((value: { text: string }) => value.text + " ")}
             </TextReponse>
           ))}
@@ -138,7 +152,7 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
           <Button
             variant="contained"
             onClick={handleVerify}
-            disabled={!hasAtLeastOneAnswer()}
+            disabled={!hasTheGoodNumberOfAnswer()}
           >
             Vérifier
           </Button>

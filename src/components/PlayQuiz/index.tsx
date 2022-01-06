@@ -2,13 +2,15 @@ import { useMemo, useEffect, useState } from "react";
 import { Box, styled } from "@mui/system";
 import { PlayableQuizState } from "../../pages/PlayQuiz";
 import Question from "./Question";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import TypoGraphyBebasNeue from "../atoms/TypographyBebasNeue";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../atoms/TextInput";
 import usePost from "../../hooks/usePost";
 import { toast } from "react-toastify";
 import { customSuccessToast } from "../../utils/customToast";
+import Button from "../atoms/Button";
+
 const Container = styled(Box)({
   height: "85vh",
 });

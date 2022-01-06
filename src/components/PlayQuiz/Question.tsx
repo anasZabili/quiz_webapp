@@ -91,14 +91,20 @@ const Question: React.FC<QuestionProps> = ({
         );
 
       default:
-        return (
-          <TextAnswer
-            finishQuiz={finishQuiz}
-            isTheLastQuestion={isTheLastQuestion}
-            nextQuestion={nextQuestion}
-            questionId={question.id}
-          />
-        );
+        return <Typography color="primary">Erreur rencontré</Typography>;
+    }
+  };
+
+  const computedTitle = (): string => {
+    switch (question.type) {
+      case 0:
+        return "Plusieur réponse possible";
+      case 1:
+        return "Une seule réponse possible";
+      case 2:
+        return "Réponse libre";
+      default:
+        return "Erreur rencontré";
     }
   };
   return (
@@ -111,7 +117,10 @@ const Question: React.FC<QuestionProps> = ({
         rowSpacing={2}
       >
         <Grid item xs={12}>
-          <Title variant="h3">{question.text}</Title>
+          <Title variant="h4">{question.text} ?</Title>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>{computedTitle()}</Typography>
         </Grid>
         <Grid item xs={12}>
           <ComputedAnswerComponent />

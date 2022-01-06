@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import { Box, styled } from "@mui/system";
 import { useEffect, useState } from "react";
+import CheckBoxAndLabel from "../molecules/CheckboxAndLabel";
+import { CheckboxsState } from "./MultipleChoiceAnswer";
 import { IAnswers } from "./Question";
 
 const StyledBox = styled(Box)({
@@ -19,11 +21,11 @@ const StyledBox = styled(Box)({
 });
 
 const StyledFormGroup = styled(FormGroup)({
-  display: "grid",
-  gridTemplateColumns: "auto auto",
-  gridGap: "1rem",
-  alignItems: "center",
-  justifyItems: "center",
+  // display: "grid",
+  // gridTemplateColumns: "auto auto",
+  // gridGap: "1rem",
+  // alignItems: "center",
+  // justifyItems: "center",
 });
 
 const CenterFormControlLabel = styled(FormControlLabel)({
@@ -41,13 +43,24 @@ interface CheckBoxGroupProps {
   answers: IAnswers["answers"];
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isVerify: boolean;
+  checked: CheckboxsState["checkboxsState"] | undefined;
 }
 
 const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
   answers,
   handleChange,
   isVerify,
+  checked,
 }) => {
+  console.log("🚀 ~ file: CheckBoxGroup.tsx ~ line 54 ~ checked", checked);
+  const isValueAtIndexChecked = (index: number) => {
+    if (checked) {
+      return checked[index].isChecked;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <Grid item xs={12}>
       <FormControl component="div" disabled={isVerify}>
@@ -62,17 +75,20 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
             rowSpacing={2}
           >
             {answers?.map((value, index) => {
-              console.log(
-                "🚀 ~ file: CheckBoxGroup.tsx ~ line 68 ~ {answers?.map ~ value",
-                value
-              );
-
               return (
-                <Grid item xs={6}>
-                  <CenterFormControlLabel
-                    control={
-                      <Checkbox value={value.id} onChange={handleChange} />
-                    }
+                <Grid
+                  item
+                  xs={6}
+                  container
+                  justifyContent="center"
+                  direction="row"
+                  alignItems="center"
+                  rowSpacing={2}
+                >
+                  <CheckBoxAndLabel
+                    value={value.id}
+                    checked={isValueAtIndexChecked(index)}
+                    onChange={handleChange}
                     label={value.text}
                   />
                 </Grid>
