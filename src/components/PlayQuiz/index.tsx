@@ -8,27 +8,13 @@ import { useNavigate } from "react-router-dom";
 import TextInput from "../atoms/TextInput";
 import usePost from "../../hooks/usePost";
 import { toast } from "react-toastify";
-import { customSuccessToast } from "../../utils/customToast";
+import { customErrorToast, customSuccessToast } from "../../utils/customToast";
 import Button from "../atoms/Button";
-
-const Container = styled(Box)({
-  height: "85vh",
-});
 
 const QuestionContainer = styled(Box)({
   margin: "2rem",
   display: "flex",
   justifyContent: "center",
-});
-
-const Title = styled("h1")({
-  padding: 0,
-  margin: "1rem",
-  fontSize: "2rem",
-  color: "Gray",
-  textAlign: "center",
-  letterSpacing: "0.2rem",
-  fontFamily: "Bebas Neue",
 });
 
 interface QuizPlayProps {
@@ -75,6 +61,18 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (error) {
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de l'enregistrement de votre score"
+      );
+    }
+    if (response) {
+      customSuccessToast("Succès", "Votre score a bien été enregistré");
+    }
+  }, [error, response]);
+
   const handleFinishedClick = () => {
     const url = process.env.REACT_APP_API_BASE + "score";
     const formatedValues = {
@@ -82,14 +80,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
       score: calculatedScore,
       quizid: quiz.id,
     };
-    axiosPost(url, formatedValues).then((res) => {
-      console.log("response", res);
-      if (!error) {
-        // handle Toast
-        customSuccessToast("title", "message");
-      }
-      navigate("/");
-    });
+    axiosPost(url, formatedValues);
   };
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

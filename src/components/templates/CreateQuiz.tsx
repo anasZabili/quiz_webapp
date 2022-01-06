@@ -5,11 +5,13 @@ import CreateQuizStepper, {
 } from "../organisms/CreateQuiz/CreateQuizStepper";
 import usePost from "../../hooks/usePost";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { customErrorToast, customSuccessToast } from "../../utils/customToast";
 
 interface CreateQuizProps {}
 
 const Container = styled(Box)({
-  width: "80%",
+  width: "85%",
   maxWidth: "1500px",
   margin: "2em auto",
 });
@@ -24,6 +26,23 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
       navigate("/");
     });
   };
+
+  useEffect(() => {
+    if (error) {
+      console.log(
+        "🚀 ~ file: CreateQuiz.tsx ~ line 32 ~ useEffect ~ error",
+        error
+      );
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de la création du quiz"
+      );
+    }
+    if (response) {
+      customSuccessToast("Succès", "Le quiz a été créé en brouillon");
+    }
+  }, [error, response]);
+
   return (
     <>
       <Header />

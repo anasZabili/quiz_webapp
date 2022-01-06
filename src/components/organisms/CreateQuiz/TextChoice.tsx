@@ -41,6 +41,11 @@ const TextChoice: React.FC<TextChoiceProps> = ({
     newAnswer.text = inputEvent.target.value;
     setAnswer(newAnswer);
   };
+
+  const hasQuestionAndAnswer = () => {
+    return questionText.length > 0 && answer.text.length > 0;
+  };
+
   return (
     // <StyledBox>
     <CenterBox>
@@ -62,6 +67,7 @@ const TextChoice: React.FC<TextChoiceProps> = ({
         onChange={handleInputChange}
       />
       <Button
+        disabled={!hasQuestionAndAnswer()}
         onClick={() =>
           handleChange({
             text: questionText,
@@ -69,7 +75,6 @@ const TextChoice: React.FC<TextChoiceProps> = ({
             answers: [answer],
           })
         }
-        disabled={!answer}
       >
         Suivant
       </Button>

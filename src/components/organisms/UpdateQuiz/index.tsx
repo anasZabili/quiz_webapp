@@ -17,6 +17,7 @@ import { styled } from "@mui/system";
 import Grid from "@mui/material/Grid";
 import DialogPassword from "./DialogPassword";
 import usePost from "../../../hooks/usePost";
+import { customErrorToast } from "../../../utils/customToast";
 
 interface UpdateQuizPageProps {
   quizzes: QuizInfoState["quiz"];
@@ -57,10 +58,19 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
   };
 
   const refetchAfterAction = () => {
-    console.log("--- JE suis dans le refetch --");
     refetch();
     clearField();
   };
+
+  useEffect(() => {
+    if (error) {
+      console.log("🚀 ~ file: index.tsx ~ line 67 ~ useEffect ~ error", error);
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de la mise à jour du quiz"
+      );
+    }
+  }, [error]);
 
   const handleValidatePassword = (value: string) => {
     if (selectedQuiz?.id) {
@@ -70,7 +80,6 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
         selectedQuiz?.id +
         "/checkAccess";
       axiosPost(url, { password: value }).then((res) => {
-        console.log("response", res);
         setOpen(false);
       });
     }

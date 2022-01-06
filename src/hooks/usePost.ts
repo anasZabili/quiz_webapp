@@ -16,7 +16,6 @@ const usePost = () => {
     return axios
       .post(url, body, option)
       .then((res) => {
-        console.log("ajout réussi", res);
         setIsLoading(false);
         setResponse(res.data);
         setError(null);

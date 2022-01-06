@@ -1,12 +1,6 @@
-import { Grid, List, ListItem, Typography } from "@mui/material";
-import { Box, flexbox, styled } from "@mui/system";
-import usePost from "../../../hooks/usePost";
-import useDelete from "../../../hooks/useDelete";
-import IconButton from "../../atoms/IconButton";
+import { List, ListItem, Typography } from "@mui/material";
+import { styled } from "@mui/system";
 import { QuizInfoState } from "../../templates/Home";
-import DeleteIcon from "@mui/icons-material/Delete";
-import PublishIcon from "@mui/icons-material/Publish";
-
 interface QuizListProps {
   quizzes: QuizInfoState["quiz"];
   refetch: () => void;

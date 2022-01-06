@@ -1,11 +1,10 @@
 import { CircularProgress, Box, Typography, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useFetchData from "../../../hooks/useFetchData";
-import usePost from "../../../hooks/usePost";
 import { UpdateQuizState } from "../UpdateQuiz";
 import CreateQuizQuestionForm from "./CreateQuizQuestionForm";
 import CreateQuizTitleForm from "./CreateQuizTitleForm";
+import { customErrorToast } from "../../../utils/customToast";
 
 interface CreateQuizStepperProps {
   handleCreate: (values: any) => void;
@@ -29,12 +28,22 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   handleCreate,
   defaultValues,
 }) => {
-  const quizzesUrl = process.env.REACT_APP_API_BASE + "questions/quizzes";
+  const quizzesUrl = process.env.REACT_APP_API_BASE + "quizzes";
   const {
     error: quizzesError,
     isLoading: quizzesIsLoading,
     data: quizzesData,
   } = useFetchData(quizzesUrl);
+
+  useEffect(() => {
+    if (quizzesError) {
+      console.log(
+        "🚀 ~ file: index.tsx ~ line 67 ~ useEffect ~ error",
+        quizzesError
+      );
+      customErrorToast("Erreur", "Une erreur est survenue ");
+    }
+  }, [quizzesError]);
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -51,10 +60,6 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
     }),
   });
 
-  console.log(
-    "🚀 ~ file: CreateQuizStepper.tsx ~ line 36 ~ createdQuiz",
-    createdQuiz
-  );
   // deep clone array fonction
   const cloneArray = (array: any[]) => {
     return JSON.parse(JSON.stringify(array));
@@ -86,9 +91,29 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   }, [isFinished]);
 
   const onSubmit = (values: any) => {
+    console.log(
+      "🚀 ~ file: CreateQuizStepper.tsx ~ line 84 ~ onSubmit ~ values",
+      values
+    );
     switch (true) {
       case currentStep === 0:
-        if (quizzesData.some((q: any) => q.Name === values)) {
+        console.log("mes données, ", quizzesData);
+        console.log(
+          "mes données filtré, ",
+          quizzesData.filter(
+            (value: { id: string; name: string }) => value.name === values.name
+          )
+        );
+        if (
+          quizzesData.filter(
+            (value: { id: string; name: string }) => value.name === values.name
+          ).length > 0
+        ) {
+          console.log("le quiz existe deja");
+          customErrorToast("Erreur", "Un quiz portant le même nom existe déjà");
+          break;
+        } else {
+          console.log("pas e titre dupliqué");
         }
         setCreatedQuiz((prevState) => {
           return {

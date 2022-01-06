@@ -56,14 +56,12 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
           isCorrect: false,
         })
   );
-  console.log("🚀 ~ file: MutipleChoiceInput.tsx ~ line 31 ~ answers", answers);
 
   const cloneArray = (array: any[]) => {
     return JSON.parse(JSON.stringify(array));
   };
 
   useEffect(() => {
-    console.log("je suis o debut du useEffect");
     if (answers.length < 4) {
       const newAnswers = cloneArray(answers);
       while (newAnswers.length < 4) {
@@ -103,6 +101,31 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
     newAnswers[index].text = inputEvent.target.value;
     setAnswers(newAnswers);
   };
+
+  const hasAllTheTextSetAndAtLeastOneCorrect = () => {
+    return (
+      answers.every((answer: any) => {
+        return answer.text.length > 0;
+      }) &&
+      answers.some((answer: any) => {
+        return answer.isCorrect;
+      }) &&
+      questionText.length > 0
+    );
+  };
+
+  const hasAllTheTextSetAndAtLeastTwoCorrect = () => {
+    return (
+      answers.every((answer: any) => {
+        return answer.text.length > 0;
+      }) &&
+      answers.filter((answer: any) => {
+        return answer.isCorrect;
+      }).length >= 2 &&
+      questionText.length > 0
+    );
+  };
+
   return (
     <Grid
       container
@@ -173,6 +196,11 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
       </Grid>
       <Grid item xs={12}>
         <Button
+          disabled={
+            isSingleChoice
+              ? !hasAllTheTextSetAndAtLeastOneCorrect()
+              : !hasAllTheTextSetAndAtLeastTwoCorrect()
+          }
           onClick={() =>
             handleChange({
               text: questionText,

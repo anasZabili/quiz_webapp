@@ -17,6 +17,11 @@ import PublishIcon from "@mui/icons-material/Publish";
 import useDelete from "../../../hooks/useDelete";
 import usePost from "../../../hooks/usePost";
 import Button from "../../atoms/Button";
+import {
+  customErrorToast,
+  customSuccessToast,
+} from "../../../utils/customToast";
+import { useEffect } from "react";
 
 interface UpdateQuizPanelProps {
   quiz: UpdateQuizState;
@@ -32,7 +37,12 @@ const StyledCard = styled(MuiCard)({
 });
 
 const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
-  const { axiosPut, response, isLoading, error } = usePut();
+  const {
+    axiosPut,
+    response: putReponse,
+    isLoading,
+    error: putError,
+  } = usePut();
   const navigate = useNavigate();
 
   const {
@@ -47,6 +57,46 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
     isLoading: postIsLoading,
     error: postError,
   } = usePost();
+
+  useEffect(() => {
+    if (postError) {
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de la publication du quiz"
+      );
+    }
+    if (deleteError) {
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de la supréssion du quiz"
+      );
+    }
+    if (putError) {
+      customErrorToast(
+        "Erreur",
+        "Une erreur est survenue lors de la mise à jour du quiz"
+      );
+    }
+    if (postResponse) {
+      customSuccessToast("Succès", "Le quiz a bien été publié");
+    }
+    if (putReponse) {
+      customSuccessToast("Succès", "Le quiz a bien été modifié");
+    }
+    if (putReponse) {
+      customSuccessToast("Succès", "Le quiz a bien été modifié");
+    }
+    if (deleteResponse) {
+      customSuccessToast("Succès", "Le quiz a bien été suprimé");
+    }
+  }, [
+    postError,
+    deleteError,
+    putError,
+    postResponse,
+    putReponse,
+    deleteResponse,
+  ]);
 
   const onSubmit = (values: CreatedQuizState) => {
     console.log(
