@@ -52,7 +52,6 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
   isVerify,
   checked,
 }) => {
-  console.log("🚀 ~ file: CheckBoxGroup.tsx ~ line 54 ~ checked", checked);
   const isValueAtIndexChecked = (index: number) => {
     if (checked) {
       return checked[index].isChecked;

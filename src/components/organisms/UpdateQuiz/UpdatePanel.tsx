@@ -99,10 +99,6 @@ const UpdateQuizPanel: React.FC<UpdateQuizPanelProps> = ({ quiz, refetch }) => {
   ]);
 
   const onSubmit = (values: CreatedQuizState) => {
-    console.log(
-      "🚀 ~ file: UpdatePanel.tsx ~ line 24 ~ onSubmit ~ values",
-      values
-    );
     const url = process.env.REACT_APP_API_BASE + "quiz/" + quiz.id;
     axiosPut(url, values).then((res) => {
       refetch();

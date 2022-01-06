@@ -27,7 +27,6 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [username, setUsername] = useState("");
-  console.log("🚀 ~ file: index.tsx ~ line 40 ~ username", !!username);
 
   const { axiosPost, response, isLoading, error } = usePost();
 

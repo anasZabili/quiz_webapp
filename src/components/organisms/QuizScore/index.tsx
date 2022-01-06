@@ -58,8 +58,6 @@ const QuizScore: React.FC<QuizScoreProps> = ({ open, setOpen, quiId }) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  console.log("data", data);
-
   return (
     <StyledDialog open={open} onClose={handleClose}>
       <Grid container spacing={3} direction="column">

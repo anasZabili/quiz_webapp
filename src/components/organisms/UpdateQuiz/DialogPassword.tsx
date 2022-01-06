@@ -61,7 +61,6 @@ const DialogPassword: React.FC<DialogPasswordProps> = ({
 
   const handleValidate = () => {
     onSubmit(passwordValue.password);
-    // console.log("password values", passwordValue);
   };
   return (
     <StyledDialog open={open} onClose={handleClose}>

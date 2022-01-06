@@ -35,10 +35,6 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
   questionId,
 }) => {
   const [checked, setChecked] = useState<CheckboxsState["checkboxsState"]>();
-  console.log(
-    "🚀 ~ file: MultipleChoiceAnswer.tsx ~ line 37 ~ checked",
-    checked
-  );
 
   const [isVerify, setIsVerify] = useState(false);
 
@@ -59,7 +55,6 @@ const MultipleChoiceAnswer: React.FC<MultipleChoiceAnswerProps> = ({
     const id = event.target.value;
     setChecked((prevState) => {
       if (isSingleChoice) {
-        console.log("je rentre dans le is single choice");
         prevState?.forEach((answer: any) => {
           answer.isChecked = false;
         });

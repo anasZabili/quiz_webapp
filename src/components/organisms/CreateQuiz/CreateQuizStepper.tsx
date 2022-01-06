@@ -37,10 +37,6 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
 
   useEffect(() => {
     if (quizzesError) {
-      console.log(
-        "🚀 ~ file: index.tsx ~ line 67 ~ useEffect ~ error",
-        quizzesError
-      );
       customErrorToast("Erreur", "Une erreur est survenue ");
     }
   }, [quizzesError]);
@@ -91,19 +87,8 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   }, [isFinished]);
 
   const onSubmit = (values: any) => {
-    console.log(
-      "🚀 ~ file: CreateQuizStepper.tsx ~ line 84 ~ onSubmit ~ values",
-      values
-    );
     switch (true) {
       case currentStep === 0:
-        console.log("mes données, ", quizzesData);
-        console.log(
-          "mes données filtré, ",
-          quizzesData.filter(
-            (value: { id: string; name: string }) => value.name === values.name
-          )
-        );
         if (
           quizzesData.filter(
             (value: { id: string; name: string }) => value.name === values.name

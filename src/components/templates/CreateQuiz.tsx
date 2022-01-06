@@ -29,10 +29,6 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(
-        "🚀 ~ file: CreateQuiz.tsx ~ line 32 ~ useEffect ~ error",
-        error
-      );
       customErrorToast(
         "Erreur",
         "Une erreur est survenue lors de la création du quiz"

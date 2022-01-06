@@ -16,19 +16,11 @@ const TextChoice: React.FC<TextChoiceProps> = ({
   handleChange,
   defaultValues,
 }) => {
-  console.log(
-    "🚀 ~ file: TextChoice.tsx ~ line 19 ~ defaultValues",
-    defaultValues
-  );
   const [answer, setAnswer] = useState<{ text: string; isCorrect: boolean }>({
     text: defaultValues?.answers[0].text || "",
     isCorrect: true,
   });
   const [questionText, setQuestionText] = useState(defaultValues?.text || "");
-  console.log(
-    "🚀 ~ file: TextChoice.tsx ~ line 28 ~ questionText",
-    questionText
-  );
 
   // deep clone array fonction
 

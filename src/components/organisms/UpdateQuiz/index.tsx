@@ -49,10 +49,8 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
   const [open, setOpen] = useState(false);
 
   const { axiosPost, response, isLoading, error, clearField } = usePost();
-  console.log("🚀 ~ file: index.tsx ~ line 52 ~ response", response);
 
   const handleOnClick = (quiz: QuizInfoState["quiz"][0]) => {
-    console.log("QUIZ selct : ", quiz);
     setSelectedQuiz(quiz);
     setOpen(true);
   };
@@ -64,7 +62,6 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
 
   useEffect(() => {
     if (error) {
-      console.log("🚀 ~ file: index.tsx ~ line 67 ~ useEffect ~ error", error);
       customErrorToast(
         "Erreur",
         "Une erreur est survenue lors de la mise à jour du quiz"
