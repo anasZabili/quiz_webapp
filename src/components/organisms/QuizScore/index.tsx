@@ -33,6 +33,7 @@ const StyledDialog = styled(Dialog)({
     backgroundColor: "#1A1A1A",
     borderRadius: "1rem",
     width: "40vh",
+    padding: "1.5em",
   },
 });
 

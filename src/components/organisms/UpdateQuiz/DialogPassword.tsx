@@ -27,6 +27,7 @@ const StyledDialog = styled(Dialog)({
   "& .MuiPaper-root": {
     backgroundColor: "#1A1A1A",
     borderRadius: "1rem",
+    padding: "1.5em",
   },
 });
 

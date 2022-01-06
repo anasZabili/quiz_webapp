@@ -109,11 +109,8 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
             (value: { id: string; name: string }) => value.name === values.name
           ).length > 0
         ) {
-          console.log("le quiz existe deja");
           customErrorToast("Erreur", "Un quiz portant le même nom existe déjà");
           break;
-        } else {
-          console.log("pas e titre dupliqué");
         }
         setCreatedQuiz((prevState) => {
           return {
