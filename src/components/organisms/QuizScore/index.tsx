@@ -62,7 +62,7 @@ const QuizScore: React.FC<QuizScoreProps> = ({ open, setOpen, quiId }) => {
 
   return (
     <StyledDialog open={open} onClose={handleClose}>
-      <Grid container rowGap={3} direction="column">
+      <Grid container spacing={3} direction="column">
         <DialogTitle color="primary" sx={{ fontWeight: "bold" }}>
           Hall of Fame
         </DialogTitle>
@@ -77,7 +77,7 @@ const QuizScore: React.FC<QuizScoreProps> = ({ open, setOpen, quiId }) => {
                     <Grid
                       container
                       direction="row"
-                      rowGap={2}
+                      spacing={2}
                       justifyContent="center"
                       alignItems="center"
                     >

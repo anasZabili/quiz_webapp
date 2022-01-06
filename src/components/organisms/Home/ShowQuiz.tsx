@@ -1,4 +1,4 @@
-import { CardContent, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router";
 import Card from "../../molecules/QuizCard";
@@ -27,7 +27,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quizzes }) => {
     <Grid container spacing={4}>
       {quizzes.map((value, index) => {
         return (
-          <Grid item xs={4} key={value.id}>
+          <Grid item xs={12} md={6} lg={4} key={value.id}>
             <Card onClick={() => handleClick(value.id)} quizId={value.id}>
               <Title>{value.name.toUpperCase()}</Title>
             </Card>

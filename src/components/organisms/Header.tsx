@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import AppTitle from "../atoms/AppTitle";
 import HeaderLink from "../atoms/HeaderLink";
 import TypoGraphyBebasNeue from "../atoms/TypographyBebasNeue";
+import { useMediaQuery } from "react-responsive";
 
 const TitleContainer = styled(Box)({
   cursor: "pointer",
@@ -33,14 +34,29 @@ const Appbar: React.FC<AppbarProps> = () => {
   const handleClick = () => {
     navigate("/");
   };
+
+  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+  const title = "NETQUIZ";
+  const createString = "Créer Quiz";
+  const updateString = "Modifier Quiz";
+
+  // extract the first word of createString
+
+  const firstWordOfString = (str: string) => {
+    return str.split(" ")[0];
+  };
   return (
     <StyledAppBar position="static">
       <Toolbar>
         <TitleContainer onClick={handleClick} flexGrow={1}>
-          <Title variant="h2">NETQUIZ</Title>
+          <Title variant="h2">{isMobile ? title.charAt(0) : title}</Title>
         </TitleContainer>
-        <HeaderLink to="/create-quiz">Créer Quiz</HeaderLink>
-        <HeaderLink to="/update-quiz">Modifier Quiz</HeaderLink>
+        <HeaderLink to="/create-quiz">
+          {isMobile ? firstWordOfString(createString) : createString}
+        </HeaderLink>
+        <HeaderLink to="/update-quiz">
+          {isMobile ? firstWordOfString(updateString) : updateString}
+        </HeaderLink>
       </Toolbar>
     </StyledAppBar>
   );

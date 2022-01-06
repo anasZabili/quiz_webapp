@@ -1,5 +1,4 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { useState } from "react";
 
 interface CheckBoxAndLabelProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -26,6 +25,9 @@ const CheckBoxAndLabel: React.FC<CheckBoxAndLabelProps> = ({
           margin: "0 auto",
           color: "#eef3f8b0",
           width: "100%",
+        },
+        svg: {
+          color: "#eef3f8",
         },
       }}
       label={label}

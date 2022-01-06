@@ -114,10 +114,8 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
       direction="column"
       justifyContent="center"
       alignItems="center"
-      rowGap={3}
+      spacing={3}
     >
-      {/* <Grid container direction="row" alignItems="start"> */}
-      {/* <Grid item xs={12}> */}
       <TextInput
         type="text"
         placeholder={`Question`}
@@ -127,17 +125,14 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           setQuestionText(event.target.value)
         }
-        // label="Mot de passe du Quiz"
       />
-      {/* </Grid> */}
-      {/* </Grid> */}
       <StyledFormGroup>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="center"
-          rowGap={3}
+          spacing={2}
         >
           {Array(4)
             .fill(0)
@@ -186,7 +181,7 @@ const MultipleChoiceInput: React.FC<MultipleChoiceInputProps> = ({
           })
         }
       >
-        Click pr submit le change
+        Suivant
       </Button>
     </Grid>
   );

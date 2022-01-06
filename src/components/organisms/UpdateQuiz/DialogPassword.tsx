@@ -64,7 +64,7 @@ const DialogPassword: React.FC<DialogPasswordProps> = ({
   };
   return (
     <StyledDialog open={open} onClose={handleClose}>
-      <Grid container rowGap={3} direction="column">
+      <Grid container spacing={3} direction="column">
         <DialogTitle color="primary">
           Entrer le mot de passe du quiz
         </DialogTitle>

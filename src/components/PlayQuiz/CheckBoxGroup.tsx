@@ -78,7 +78,8 @@ const CheckBoxGroup: React.FC<CheckBoxGroupProps> = ({
               return (
                 <Grid
                   item
-                  xs={6}
+                  md={6}
+                  xs={12}
                   container
                   justifyContent="center"
                   direction="row"

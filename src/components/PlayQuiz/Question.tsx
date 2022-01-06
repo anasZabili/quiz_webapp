@@ -7,33 +7,19 @@ import TFAnswer from "./TFAnswer";
 
 const StyledCard = styled(Card)({
   color: "gray",
-  padding: "4rem",
+  padding: "1rem",
   backgroundColor: "#635d5d63",
-  width: "60%",
-  minHeight: "400px",
+  minHeight: "30px",
   borderRadius: "5px",
-  boxShadow: "0px 0px 15px rgba(238, 10, 10, 0.5)",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
+  minWidth: "60%",
+  // minWidth: "220px",
 });
 
 const Title = styled(Typography)({
-  color: "#918a8a",
+  color: "#998c8c",
   textAlign: "center",
   fontSize: "2rem",
   fontWeight: "bold",
-});
-const StyledButton = styled("h1")({
-  color: "#918a8a",
-  textAlign: "center",
-  fontSize: "2rem",
-  fontWeight: "bold",
-});
-
-const AnswerContainer = styled(Box)({
-  margin: "1rem",
 });
 
 interface QuestionProps {
@@ -111,10 +97,10 @@ const Question: React.FC<QuestionProps> = ({
     <StyledCard>
       <Grid
         container
-        justifyContent="center"
         direction="column"
+        justifyContent="center"
         alignItems="center"
-        rowSpacing={2}
+        spacing={2}
       >
         <Grid item xs={12}>
           <Title variant="h4">{question.text} ?</Title>

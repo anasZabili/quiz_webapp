@@ -136,7 +136,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
             direction="column"
             justifyContent="center"
             alignItems="center"
-            rowGap={3}
+            spacing={3}
           >
             <Grid item xs={12}>
               <Typography variant="h5" color="primary">
@@ -158,7 +158,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
             direction="column"
             justifyContent="center"
             alignItems="center"
-            rowGap={3}
+            spacing={3}
           >
             <Grid item xs={12}>
               <Typography variant="h5" color="primary">

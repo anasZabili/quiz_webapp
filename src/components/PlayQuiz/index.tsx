@@ -103,7 +103,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
         justifyContent="center"
         direction="row"
         alignItems="center"
-        rowSpacing={2}
+        spacing={2}
       >
         <Grid item xs={12}>
           <TypoGraphyBebasNeue
@@ -131,7 +131,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
               justifyContent="center"
               direction="column"
               alignItems="center"
-              rowSpacing={2}
+              spacing={2}
             >
               <Grid item xs={12}>
                 <TypoGraphyBebasNeue
@@ -149,7 +149,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
                 justifyContent="center"
                 alignItems="center"
                 direction="column"
-                rowGap={2}
+                spacing={2}
               >
                 <Grid item xs={12}>
                   <TextInput
