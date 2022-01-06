@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router";
 import Appbar from "../components/organisms/Header";
 import QuizPlay from "../components/PlayQuiz";
@@ -32,7 +33,7 @@ const PlayQuiz: React.FC<PlayQuizProps> = () => {
   return (
     <>
       <Appbar />
-      {!isLoading && <QuizPlay quiz={data} />}
+      {!isLoading ? <QuizPlay quiz={data} /> : <CircularProgress />}
     </>
   );
 };

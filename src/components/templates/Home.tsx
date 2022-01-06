@@ -1,6 +1,7 @@
 import Header from "../organisms/Header";
 import ShowQuiz from "../organisms/Home/ShowQuiz";
 import { Box, styled } from "@mui/system";
+import { CircularProgress } from "@mui/material";
 
 interface HomeProps {
   isLoading: boolean;
@@ -21,7 +22,9 @@ const Home: React.FC<HomeProps> = ({ isLoading = false, quizzes }) => {
   return (
     <>
       <Header />
-      <Container>{!isLoading && <ShowQuiz quizzes={quizzes} />}</Container>
+      <Container>
+        {!isLoading ? <ShowQuiz quizzes={quizzes} /> : <CircularProgress />}
+      </Container>
     </>
   );
 };

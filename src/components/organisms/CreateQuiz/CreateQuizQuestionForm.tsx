@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useState } from "react";
 import useFetchData from "../../../hooks/useFetchData";
 import { UpdateQuizState } from "../UpdateQuiz";
@@ -50,12 +51,14 @@ const CreateQuizQuestionForm: React.FC<CreateQuizQuestionFormProps> = ({
 
   return (
     <>
-      {!isLoading && (
+      {!isLoading ? (
         <RadioTypeOfQuestionNew
           handleChange={handleQuestionChange}
           questionTypes={data}
           defaultValues={defaultValues}
         />
+      ) : (
+        <CircularProgress />
       )}
     </>
   );

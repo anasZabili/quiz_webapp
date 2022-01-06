@@ -1,6 +1,7 @@
 import useFetchData from "../hooks/useFetchData";
 import { default as HomeTemplate } from "../components/templates/Home";
 import { customSuccessToast } from "../utils/customToast";
+import { CircularProgress } from "@mui/material";
 
 interface HomeProps {}
 
@@ -9,7 +10,7 @@ const Home: React.FC<HomeProps> = () => {
   const { error, isLoading, data } = useFetchData(url);
   return (
     <>
-      <HomeTemplate quizzes={data} isLoading={isLoading} />{" "}
+      <HomeTemplate quizzes={data} isLoading={isLoading} />
     </>
   );
 };
