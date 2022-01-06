@@ -29,7 +29,7 @@ const CreateQuizStepper: React.FC<CreateQuizStepperProps> = ({
   handleCreate,
   defaultValues,
 }) => {
-  const quizzesUrl = process.env.REACT_APP_API_BASE + "questions/quizzes";
+  const quizzesUrl = process.env.REACT_APP_API_BASE + "/quizzes";
   const {
     error: quizzesError,
     isLoading: quizzesIsLoading,
