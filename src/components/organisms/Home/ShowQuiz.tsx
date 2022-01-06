@@ -28,8 +28,8 @@ const QuizCard: React.FC<QuizCardProps> = ({ quizzes }) => {
       {quizzes.map((value, index) => {
         return (
           <Grid item xs={4} key={value.id}>
-            <Card onClick={() => handleClick(value.id)}>
-              <Title>{value.name}</Title>
+            <Card onClick={() => handleClick(value.id)} quizId={value.id}>
+              <Title>{value.name.toUpperCase()}</Title>
             </Card>
           </Grid>
         );

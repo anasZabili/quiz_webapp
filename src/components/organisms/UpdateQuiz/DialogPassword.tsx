@@ -1,14 +1,21 @@
-import { Password } from "@mui/icons-material";
+import { Password, Visibility, VisibilityOff } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { useState } from "react";
+import { State } from "joi";
 
 interface DialogPasswordProps {
   open: boolean;
@@ -28,35 +35,87 @@ const DialogPassword: React.FC<DialogPasswordProps> = ({
   setOpen,
   onSubmit,
 }) => {
-  const [paswword, setPaswword] = useState("");
+  const defaultValuePassword = {
+    password: "",
+    showPassword: false,
+  };
+  const [passwordValue, setPaswword] = useState(defaultValuePassword);
   const handleClose = () => {
+    setPaswword(defaultValuePassword);
     setOpen(false);
   };
 
+  const handleClickShowPassword = () => {
+    setPaswword({
+      ...passwordValue,
+      showPassword: !passwordValue.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
+
   const handleValidate = () => {
-    onSubmit(paswword);
+    onSubmit(passwordValue.password);
+    // console.log("password values", passwordValue);
   };
   return (
     <StyledDialog open={open} onClose={handleClose}>
-      <DialogTitle color="secondary">Entrer le mot de passe</DialogTitle>
-      <DialogContent>
-        <TextField
-          color="secondary"
-          autoFocus
-          margin="dense"
-          id="password"
-          label="Mot de passe"
-          type="password"
-          fullWidth
-          variant="standard"
-          onChange={(e) => setPaswword(e.target.value)}
-        />
-      </DialogContent>
+      <Grid container rowGap={3} direction="column">
+        <DialogTitle color="primary">
+          Entrer le mot de passe du quiz
+        </DialogTitle>
+        <DialogContent>
+          <FormControl
+            sx={{ mt: 1 }}
+            variant="outlined"
+            color="primary"
+            focused
+            fullWidth
+          >
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={passwordValue.showPassword ? "text" : "password"}
+              value={passwordValue.password}
+              sx={{
+                color: "#eef3f8",
+              }}
+              onChange={(e) =>
+                setPaswword({ ...passwordValue, password: e.target.value })
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                    color="primary"
+                  >
+                    {passwordValue.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+        </DialogContent>
+      </Grid>
       <DialogActions>
-        <Button onClick={handleClose} color="secondary">
+        <Button onClick={handleClose} color="primary">
           Annuler
         </Button>
-        <Button onClick={handleValidate} color="secondary">
+        <Button onClick={handleValidate} color="primary">
           Valider
         </Button>
       </DialogActions>

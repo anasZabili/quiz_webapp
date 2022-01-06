@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import QuizList from "./QuizList";
@@ -79,10 +80,14 @@ const UpdateQuizPage: React.FC<UpdateQuizPageProps> = ({
     <>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
+          <Typography variant="h5" color="primary" sx={{ pb: 1 }}>
+            Quiz Brouillon
+          </Typography>
           <QuizList
             quizzes={quizzes}
             refetch={refetch}
             onClick={handleOnClick}
+            disabled={response ? true : false}
           />
         </Grid>
         <Grid item xs={12} md={8}>

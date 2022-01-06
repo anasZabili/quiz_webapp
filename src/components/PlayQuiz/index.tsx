@@ -76,7 +76,7 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const navigate = useNavigate();
 
   const handleFinishedClick = () => {
-    const url = process.env.REACT_APP_API_BASE + "score/create";
+    const url = process.env.REACT_APP_API_BASE + "score";
     const formatedValues = {
       username: username,
       score: calculatedScore,

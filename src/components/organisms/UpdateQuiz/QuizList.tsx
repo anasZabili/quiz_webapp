@@ -11,6 +11,7 @@ interface QuizListProps {
   quizzes: QuizInfoState["quiz"];
   refetch: () => void;
   onClick: (quiz: QuizInfoState["quiz"][0]) => void;
+  disabled: boolean;
 }
 
 const StyledList = styled(List)({
@@ -32,35 +33,21 @@ const StyledListItem = styled(ListItem)({
   cursor: "pointer",
 });
 
-const QuizList: React.FC<QuizListProps> = ({ quizzes, refetch, onClick }) => {
-  const {
-    axiosDelete,
-    response: deleteResponse,
-    isLoading: deleteIsLoading,
-    error: deleteError,
-  } = useDelete();
-  const { axiosPost, response, isLoading, error } = usePost();
-
-  const handleOnDelete = (id: string) => {
-    const url = process.env.REACT_APP_API_BASE + "quiz/" + id;
-    axiosDelete(url).then(() => {
-      refetch();
-    });
-  };
-
-  const handleOnPublish = (id: string) => {
-    const url = process.env.REACT_APP_API_BASE + "quiz/" + id + "/publish";
-    axiosPost(url, {}).then(() => {
-      refetch();
-    });
-  };
-
+const QuizList: React.FC<QuizListProps> = ({
+  quizzes,
+  refetch,
+  onClick,
+  disabled,
+}) => {
   return (
     <StyledList>
       {quizzes.length > 0 ? (
         quizzes.map((quiz, value) => {
           return (
-            <StyledListItem key={quiz.id} onClick={() => onClick(quiz)}>
+            <StyledListItem
+              key={quiz.id}
+              onClick={disabled ? () => {} : () => onClick(quiz)}
+            >
               {quiz.name}
             </StyledListItem>
           );
