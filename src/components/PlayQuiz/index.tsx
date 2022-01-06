@@ -2,7 +2,7 @@ import { useMemo, useEffect, useState } from "react";
 import { Box, styled } from "@mui/system";
 import { PlayableQuizState } from "../../pages/PlayQuiz";
 import Question from "./Question";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Rating, Typography } from "@mui/material";
 import TypoGraphyBebasNeue from "../atoms/TypographyBebasNeue";
 import { useNavigate } from "react-router-dom";
 import TextInput from "../atoms/TextInput";
@@ -27,6 +27,9 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
   const [isTheLastQuestion, setIsTheLastQuestion] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [username, setUsername] = useState("");
+
+  const [rate, setRate] = useState<number | null>(2);
+  const [disableRating, setDisableRating] = useState(false);
 
   const { axiosPost, response, isLoading, error } = usePost();
 
@@ -86,6 +89,26 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
     setUsername(e.target.value);
   };
 
+  const handleRating = (values: Number | null) => {
+    const url = process.env.REACT_APP_API_BASE + "quiz/" + quiz.id + "/rate";
+    const formatedValues = {
+      rate: values,
+    };
+    console.log(
+      "🚀 ~ file: index.tsx ~ line 106 ~ handleRating ~ formatedValues",
+      formatedValues
+    );
+
+    axiosPost(url, formatedValues).then((res) => {
+      console.log("response", res);
+      if (!error) {
+        // handle Toast
+        customSuccessToast("Succès", "Note enregistrée");
+        setDisableRating(true);
+      }
+    });
+  };
+
   return (
     <>
       <Grid
@@ -132,6 +155,28 @@ const QuizPlay: React.FC<QuizPlayProps> = ({ quiz }) => {
                   Votre score est {calculatedScore}
                 </TypoGraphyBebasNeue>
               </Grid>
+
+              <Grid item xs={12}>
+                <TypoGraphyBebasNeue
+                  align="center"
+                  variant="h4"
+                  color="primary"
+                >
+                  Noter ce quiz :
+                  <Rating
+                    name="simple-controlled"
+                    value={rate}
+                    disabled={disableRating}
+                    onChange={(
+                      event: React.SyntheticEvent<Element, Event>,
+                      newValue: number | null
+                    ) => {
+                      handleRating(newValue);
+                    }}
+                  />
+                </TypoGraphyBebasNeue>
+              </Grid>
+
               <Grid
                 item
                 xs={12}
